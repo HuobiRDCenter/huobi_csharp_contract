@@ -479,5 +479,231 @@ namespace Huobi.SDK.Core.Futures.RESTful
             return await HttpRequest.PostAsync<LightningCloseResponse>(url, content);
         }
         
+        /// <summary>
+        /// 自动撤单
+        /// </summary>
+        /// <param name="onOff"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public async Task<ContractCancelAfterResponse> ContractCancelAfterAsync(int onOff, int? timeOut = null)
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/api/v1/contract-cancel-after");
+
+            // content
+            string content = $",\"on_off\": {onOff}";
+            if (timeOut != null)
+            {
+                content += $",\"time_out\": {timeOut}";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+
+            return await HttpRequest.PostAsync<ContractCancelAfterResponse>(url, content);
+        }
+        
+        /// <summary>
+        /// 获取合约历史委托(新)
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <param name="tradeType"></param>
+        /// <param name="type"></param>
+        /// <param name="status"></param>
+        /// <param name="contract"></param>
+        /// <param name="orderType"></param>
+        /// <param name="sortBy"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="direct"></param>
+        /// <param name="fromId"></param>
+        /// <returns></returns>
+        public async Task<ContractHisOrdersResponse> ContractHisOrdersAsync(string symbol, int tradeType, int type, string status,
+            string contract = null, string orderType = null, string sortBy = null, long? startTime = null, long? endTime = null, 
+            string direct = null, long? fromId = null)
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/api/v3/contract_hisorders");
+
+            // content
+            string content = $",\"symbol\": \"{symbol}\",\"trade_type\": {tradeType},\"type\": {type},\"status\": \"{status}\"";
+            if (contract != null)
+            {
+                content += $",\"contract\": \"{contract}\"";
+            }
+            if (orderType != null)
+            {
+                content += $",\"order_type\": \"{orderType}\"";
+            }
+            if (sortBy != null)
+            {
+                content += $",\"sort_by\": \"{sortBy}\"";
+            }
+            if (startTime != null)
+            {
+                content += $",\"start_time\": {startTime}";
+            }
+            if (endTime != null)
+            {
+                content += $",\"end_time\": {endTime}";
+            }
+            if (direct != null)
+            {
+                content += $",\"direct\": \"{direct}\"";
+            }
+            if (fromId != null)
+            {
+                content += $",\"from_id\": {fromId}";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+
+            return await HttpRequest.PostAsync<ContractHisOrdersResponse>(url, content);
+        }
+        
+        /// <summary>
+        /// 组合查询合约历史委托(新)
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <param name="tradeType"></param>
+        /// <param name="type"></param>
+        /// <param name="status"></param>
+        /// <param name="contract"></param>
+        /// <param name="orderType"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="direct"></param>
+        /// <param name="fromId"></param>
+        /// <returns></returns>
+        public async Task<ContractHisOrdersResponse> ContractHisOrdersExactAsync(string symbol, int tradeType, int type, string status,
+            string contract = null, string orderType = null, long? startTime = null, long? endTime = null, 
+            string direct = null, long? fromId = null)
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/api/v3/contract_hisorders_exact");
+
+            // content
+            string content = $",\"symbol\": \"{symbol}\",\"trade_type\": {tradeType},\"type\": {type},\"status\": \"{status}\"";
+            if (contract != null)
+            {
+                content += $",\"contract\": \"{contract}\"";
+            }
+            if (orderType != null)
+            {
+                content += $",\"order_type\": \"{orderType}\"";
+            }
+            if (startTime != null)
+            {
+                content += $",\"start_time\": {startTime}";
+            }
+            if (endTime != null)
+            {
+                content += $",\"end_time\": {endTime}";
+            }
+            if (direct != null)
+            {
+                content += $",\"direct\": \"{direct}\"";
+            }
+            if (fromId != null)
+            {
+                content += $",\"from_id\": {fromId}";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+
+            return await HttpRequest.PostAsync<ContractHisOrdersResponse>(url, content);
+        }
+        
+        /// <summary>
+        /// 获取历史成交记录(新)
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <param name="tradeType"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="direct"></param>
+        /// <param name="fromId"></param>
+        /// <returns></returns>
+        public async Task<ContractMatchResultsResponse> ContractMatchResultsAsync(string symbol, int tradeType,
+            long? startTime = null, long? endTime = null, 
+            string direct = null, long? fromId = null)
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/api/v3/contract_matchresults");
+
+            // content
+            string content = $",\"symbol\": \"{symbol}\",\"trade_type\": {tradeType}";
+            if (startTime != null)
+            {
+                content += $",\"start_time\": {startTime}";
+            }
+            if (endTime != null)
+            {
+                content += $",\"end_time\": {endTime}";
+            }
+            if (direct != null)
+            {
+                content += $",\"direct\": \"{direct}\"";
+            }
+            if (fromId != null)
+            {
+                content += $",\"from_id\": {fromId}";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+
+            return await HttpRequest.PostAsync<ContractMatchResultsResponse>(url, content);
+        }
+        
+        /// <summary>
+        /// 组合查询历史成交记录接口(新)
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <param name="tradeType"></param>
+        /// <param name="contract"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="direct"></param>
+        /// <param name="fromId"></param>
+        /// <returns></returns>
+        public async Task<ContractMatchResultsResponse> ContractMatchResultsExactAsync(string symbol, string contract, int tradeType,
+            long? startTime = null, long? endTime = null, 
+            string direct = null, long? fromId = null)
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/api/v3/contract_matchresults_exact");
+
+            // content
+            string content = $",\"symbol\": \"{symbol}\",\"contract\": \"{contract}\",\"trade_type\": {tradeType}";
+            if (startTime != null)
+            {
+                content += $",\"start_time\": {startTime}";
+            }
+            if (endTime != null)
+            {
+                content += $",\"end_time\": {endTime}";
+            }
+            if (direct != null)
+            {
+                content += $",\"direct\": \"{direct}\"";
+            }
+            if (fromId != null)
+            {
+                content += $",\"from_id\": {fromId}";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+
+            return await HttpRequest.PostAsync<ContractMatchResultsResponse>(url, content);
+        }
     }
 }

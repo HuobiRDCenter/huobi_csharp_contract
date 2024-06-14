@@ -1,11 +1,8 @@
-# Huobi C# SDK
+# Huobi C# SDK For Contracts v3
 
-This is Huobi C# SDK, This is a lightweight .NET library.
-You can import it to your project or nuget in: https://www.nuget.org/packages/Huobi_SDK_Core/
+This is Huobi C# SDK v3, this is a lightweight .NET library, you can import to your project and use this SDK to query all market data, trading and manage your account. The SDK supports RESTful API invoking, and subscribing the market, account and order update from the WebSocket connection.It supports Coin-M Futures, Coin-M Swaps and USDT-M.
 
-The SDK API supports both RESTful and websocket to get/sub the market, account and order infomation.
-
-It supports Spot trading, Coin-M Futures, Coin-M Swaps and USDT-M.
+If you already use SDK v1 or v2, it is strongly suggested migrate to v3 as we refactor the implementation to make it simpler and easy to maintain. The SDK v3 is completely consistent with the API documentation of the new HTX open platform. Compared to SDK versions v1 and v2, due to changes in parameters of many interfaces, in order to match the latest interface parameter situation, v3 version has made adjustments to parameters of more than 80 interfaces to ensure that requests can be correctly initiated and accurate response data can be obtained. Meanwhile, the v3 version has added over 130 new interfaces available for use, greatly expanding the number of available interfaces. We will stop the maintenance of v2 in the near future.
 
 ## Table of Contents
 
@@ -17,14 +14,14 @@ It supports Spot trading, Coin-M Futures, Coin-M Swaps and USDT-M.
   - [Folder structure](#Folder-Structure)
   - [Client](#Client)
   - [Response](#Response)
-  
+
 - [Request examples](#Request-examples)
   - [Market data](#Market-data)
 
 - [Subscription examples](#Subscription-examples)
   - [Subscribe trade update](#Subscribe-trade-update)
 
-  
+
 
 ## Quick Start
 
@@ -81,7 +78,6 @@ string secret_key = config["SecretKey"];
 This is the folder and namespace structure of SDK source code and the description
 
 - **Huobi.SDK.Core**: The SDK API project
-  - **Spot**: the Spot trading api src inclue RESTful and Websocket
   - **Futures**: the Coin-M Futures api src inclue RESTful and Websocket
   - **CoinSwap**: the Coin-M Swaps api src inclue RESTful and Websocket
   - **LinearSwap**: the USDT-M api src inclue RESTful and Websocket
@@ -105,10 +101,13 @@ In this SDK, the client is the object to access the Huobi API.All the client are
 |             | OrderClient | Private | about order |
 |             | TransferClient | Private | transfer assets |
 |             | TriggerOrderClient | Private | about trigger order |
+|             | CommonClient | Public | about common info |
+|             | UnifiedAccountClient | Private | about unified account info |
 | Websocket   | WSIndexClinet | Public | index infor |
 |             | WSMarketClinet | Public | market info |
 |             | WSNotifyClinet | Public/Private | market info/ account info |
-|             |                |         |              |
+|             | WSSystemClinet | Public | system info |
+
 
 #### Public vs. Private
 
@@ -164,7 +163,7 @@ client.SubKLine("BTC-USDT", "1min", delegate (SubKLineResponse data)
 
 #### Custom host
 
-Each client constructor support an optional host parameter, by default it is "api.btcgateway.pro". If you need to use different host, you can specify the custom host. 
+Each client constructor support an optional host parameter, by default it is "api.hbdm.com". If you need to use different host, you can specify the custom host.
 
 ```csharp
 AccountClient client = new AccountClient("AccessKey", "SecretKey", "Host");

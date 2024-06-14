@@ -59,6 +59,15 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful.Response.Account
 
             [JsonProperty("risk_rate", NullValueHandling = NullValueHandling.Ignore)]
             public double riskRate { get; set; }
+            
+            [JsonProperty("money_in", NullValueHandling = NullValueHandling.Ignore)]
+            public string moneyIn { get; set; }
+            
+            [JsonProperty("money_out", NullValueHandling = NullValueHandling.Ignore)]
+            public string moneyOut { get; set; }
+            
+            [JsonProperty("new_risk_rate", NullValueHandling = NullValueHandling.Ignore)]
+            public string newRiskRate { get; set; }
 
             [JsonProperty("liquidation_price", NullValueHandling = NullValueHandling.Ignore)]
             public double liquidationPrice { get; set; }
@@ -171,6 +180,9 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful.Response.Account
 
                 [JsonProperty("contract_type", NullValueHandling = NullValueHandling.Ignore)]
                 public string contractType { get; set; }
+                
+                [JsonProperty("cross_max_available", NullValueHandling = NullValueHandling.Ignore)]
+                public string crossMaxAvailable { get; set; }
 
                 [JsonProperty("pair", NullValueHandling = NullValueHandling.Ignore)]
                 public string pair { get; set; }

@@ -110,6 +110,9 @@ namespace Huobi.SDK.Core.CoinSwap.RESTful.Response.Order
 
             [JsonProperty("real_profit")]
             public double realProfit { get; set; }
+            
+            [JsonProperty("canceled_source", NullValueHandling = NullValueHandling.Ignore)]
+            public string canceledSource { get; set; }
 
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public List<Trade> trades { get; set; }

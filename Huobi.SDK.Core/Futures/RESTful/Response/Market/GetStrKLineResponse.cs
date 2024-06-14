@@ -26,6 +26,7 @@ namespace Huobi.SDK.Core.Futures.RESTful.Response.Market
         public List<Data> data { get; set; }
 
         public long ts { get; set; }
+        
 
         public class Data
         {

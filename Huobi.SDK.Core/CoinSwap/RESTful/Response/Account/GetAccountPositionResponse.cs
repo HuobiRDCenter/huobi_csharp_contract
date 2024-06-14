@@ -56,6 +56,12 @@ namespace Huobi.SDK.Core.CoinSwap.RESTful.Response.Account
 
             [JsonProperty("risk_rate", NullValueHandling = NullValueHandling.Ignore)]
             public double riskRate { get; set; }
+            
+            [JsonProperty("new_risk_rate", NullValueHandling = NullValueHandling.Ignore)]
+            public double newRiskRate { get; set; }
+            
+            [JsonProperty("trade_partition", NullValueHandling = NullValueHandling.Ignore)]
+            public string tradePartition { get; set; }
 
             [JsonProperty("liquidation_price", NullValueHandling = NullValueHandling.Ignore)]
             public double liquidationPrice { get; set; }
@@ -106,6 +112,9 @@ namespace Huobi.SDK.Core.CoinSwap.RESTful.Response.Account
 
                 [JsonProperty("last_price")]
                 public double lastPrice { get; set; }
+                
+                [JsonProperty("adl_risk_percent", NullValueHandling = NullValueHandling.Ignore)]
+                public double adlRiskPercent { get; set; }
             }
 
             [JsonProperty("contract_detail", NullValueHandling = NullValueHandling.Ignore)]

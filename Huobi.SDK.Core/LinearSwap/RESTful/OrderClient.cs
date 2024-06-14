@@ -986,5 +986,494 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
             return await HttpRequest.PostAsync<LightningCloseResponse>(url, content);
         }
         
+        /// <summary>
+        /// 【通用】自动撤单
+        /// </summary>
+        /// <param name="onOff"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public async Task<LinearCancelAfterResponse> LinearCancelAfterAsync(int onOff, int? timeOut = null)
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/linear-swap-api/v1/linear-cancel-after");
+
+            // content
+            string content = $",\"on_off\": {onOff}";
+            if (timeOut != null)
+            {
+                content += $",\"time_out\": {timeOut}";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+
+            return await HttpRequest.PostAsync<LinearCancelAfterResponse>(url, content);
+        }
+        
+        /// <summary>
+        /// 【逐仓】获取合约历史委托(新)
+        /// </summary>
+        /// <param name="tradeType"></param>
+        /// <param name="type"></param>
+        /// <param name="status"></param>
+        /// <param name="contract"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="direct"></param>
+        /// <param name="fromId"></param>
+        /// <returns></returns>
+        public async Task<SwapHisOrdersResponse> SwapHisOrdersAsync(int tradeType, int type, string status,
+            string contract = null, long? startTime = null, long? endTime = null, string direct = null, long? fromId = null)
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/linear-swap-api/v3/swap_hisorders");
+
+            // content
+            string content = $",\"trade_type\": {tradeType},\"type\": {type},\"status\": \"{status}\"";
+            if (contract != null)
+            {
+                content += $",\"contract\": \"{contract}\"";
+            }
+            if (startTime != null)
+            {
+                content += $",\"start_time\": {startTime}";
+            }
+            if (endTime != null)
+            {
+                content += $",\"end_time\": {endTime}";
+            }
+            if (direct != null)
+            {
+                content += $",\"direct\": \"{direct}\"";
+            }
+            if (fromId != null)
+            {
+                content += $",\"from_id\": {fromId}";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+
+            return await HttpRequest.PostAsync<SwapHisOrdersResponse>(url, content);
+        }
+        
+        /// <summary>
+        /// 【全仓】获取合约历史委托(新)
+        /// </summary>
+        /// <param name="tradeType"></param>
+        /// <param name="type"></param>
+        /// <param name="status"></param>
+        /// <param name="contract"></param>
+        /// <param name="pair"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="direct"></param>
+        /// <param name="fromId"></param>
+        /// <returns></returns>
+        public async Task<SwapCrossHisOrdersResponse> SwapCrossHisOrdersAsync(int tradeType, int type, string status,
+            string contract = null, string pair = null, long? startTime = null, long? endTime = null, string direct = null, long? fromId = null)
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/linear-swap-api/v3/swap_cross_hisorders");
+
+            // content
+            string content = $",\"trade_type\": {tradeType},\"type\": {type},\"status\": \"{status}\"";
+            if (contract != null)
+            {
+                content += $",\"contract\": \"{contract}\"";
+            }
+            if (pair != null)
+            {
+                content += $",\"pair\": \"{pair}\"";
+            }
+            if (startTime != null)
+            {
+                content += $",\"start_time\": {startTime}";
+            }
+            if (endTime != null)
+            {
+                content += $",\"end_time\": {endTime}";
+            }
+            if (direct != null)
+            {
+                content += $",\"direct\": \"{direct}\"";
+            }
+            if (fromId != null)
+            {
+                content += $",\"from_id\": {fromId}";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+
+            return await HttpRequest.PostAsync<SwapCrossHisOrdersResponse>(url, content);
+        }
+        
+        /// <summary>
+        /// 【逐仓】组合查询合约历史委托(新)
+        /// </summary>
+        /// <param name="tradeType"></param>
+        /// <param name="type"></param>
+        /// <param name="status"></param>
+        /// <param name="contract"></param>
+        /// <param name="pair"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="direct"></param>
+        /// <param name="fromId"></param>
+        /// <param name="priceType"></param>
+        /// <returns></returns>
+        public async Task<SwapHisOrdersExactResponse> SwapHisOrdersExactAsync(int tradeType, int type, string status,
+            string contract = null, string pair = null, long? startTime = null, long? endTime = null, string direct = null,
+            long? fromId = null, string priceType = null)
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/linear-swap-api/v3/swap_hisorders_exact");
+
+            // content
+            string content = $",\"trade_type\": {tradeType},\"type\": {type},\"status\": \"{status}\"";
+            if (contract != null)
+            {
+                content += $",\"contract\": \"{contract}\"";
+            }
+            if (pair != null)
+            {
+                content += $",\"pair\": \"{pair}\"";
+            }
+            if (startTime != null)
+            {
+                content += $",\"start_time\": {startTime}";
+            }
+            if (endTime != null)
+            {
+                content += $",\"end_time\": {endTime}";
+            }
+            if (direct != null)
+            {
+                content += $",\"direct\": \"{direct}\"";
+            }
+            if (fromId != null)
+            {
+                content += $",\"from_id\": {fromId}";
+            }
+            if (priceType != null)
+            {
+                content += $",\"price_type\": \"{priceType}\"";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+
+            return await HttpRequest.PostAsync<SwapHisOrdersExactResponse>(url, content);
+        }
+        
+        /// <summary>
+        /// 【全仓】组合查询合约历史委托(新)
+        /// </summary>
+        /// <param name="tradeType"></param>
+        /// <param name="type"></param>
+        /// <param name="status"></param>
+        /// <param name="contract"></param>
+        /// <param name="pair"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="direct"></param>
+        /// <param name="fromId"></param>
+        /// <param name="priceType"></param>
+        /// <returns></returns>
+        public async Task<SwapCrossHisOrdersExactResponse> SwapCrossHisOrdersExactAsync(int tradeType, int type, string status,
+            string contract = null, string pair = null, long? startTime = null, long? endTime = null, string direct = null,
+            long? fromId = null, string priceType = null)
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/linear-swap-api/v3/swap_cross_hisorders_exact");
+
+            // content
+            string content = $",\"trade_type\": {tradeType},\"type\": {type},\"status\": \"{status}\"";
+            if (contract != null)
+            {
+                content += $",\"contract\": \"{contract}\"";
+            }
+            if (pair != null)
+            {
+                content += $",\"pair\": \"{pair}\"";
+            }
+            if (startTime != null)
+            {
+                content += $",\"start_time\": {startTime}";
+            }
+            if (endTime != null)
+            {
+                content += $",\"end_time\": {endTime}";
+            }
+            if (direct != null)
+            {
+                content += $",\"direct\": \"{direct}\"";
+            }
+            if (fromId != null)
+            {
+                content += $",\"from_id\": {fromId}";
+            }
+            if (priceType != null)
+            {
+                content += $",\"price_type\": \"{priceType}\"";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+
+            return await HttpRequest.PostAsync<SwapCrossHisOrdersExactResponse>(url, content);
+        }
+        
+        /// <summary>
+        /// 【逐仓】获取历史成交记录(新)
+        /// </summary>
+        /// <param name="tradeType"></param>
+        /// <param name="contract"></param>
+        /// <param name="pair"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="direct"></param>
+        /// <param name="fromId"></param>
+        /// <returns></returns>
+        public async Task<SwapMatchResultsResponse> SwapMatchResultsAsync(int tradeType,
+            string contract = null, string pair = null, long? startTime = null, long? endTime = null, string direct = null,
+            long? fromId = null)
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/linear-swap-api/v3/swap_matchresults");
+
+            // content
+            string content = $",\"trade_type\": {tradeType}";
+            if (contract != null)
+            {
+                content += $",\"contract\": \"{contract}\"";
+            }
+            if (pair != null)
+            {
+                content += $",\"pair\": \"{pair}\"";
+            }
+            if (startTime != null)
+            {
+                content += $",\"start_time\": {startTime}";
+            }
+            if (endTime != null)
+            {
+                content += $",\"end_time\": {endTime}";
+            }
+            if (direct != null)
+            {
+                content += $",\"direct\": \"{direct}\"";
+            }
+            if (fromId != null)
+            {
+                content += $",\"from_id\": {fromId}";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+
+            return await HttpRequest.PostAsync<SwapMatchResultsResponse>(url, content);
+        }
+        
+        /// <summary>
+        /// 【全仓】获取历史成交记录(新)
+        /// </summary>
+        /// <param name="tradeType"></param>
+        /// <param name="contract"></param>
+        /// <param name="pair"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="direct"></param>
+        /// <param name="fromId"></param>
+        /// <returns></returns>
+        public async Task<SwapCrossMatchResultsResponse> SwapCrossMatchResultsAsync(int tradeType,
+            string contract, string pair = null, long? startTime = null, long? endTime = null, string direct = null,
+            long? fromId = null)
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/linear-swap-api/v3/swap_cross_matchresults");
+
+            // content
+            string content = $",\"trade_type\": {tradeType}, \"contract\": \"{contract}\"";
+            if (pair != null)
+            {
+                content += $",\"pair\": \"{pair}\"";
+            }
+            if (startTime != null)
+            {
+                content += $",\"start_time\": {startTime}";
+            }
+            if (endTime != null)
+            {
+                content += $",\"end_time\": {endTime}";
+            }
+            if (direct != null)
+            {
+                content += $",\"direct\": \"{direct}\"";
+            }
+            if (fromId != null)
+            {
+                content += $",\"from_id\": {fromId}";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+
+            return await HttpRequest.PostAsync<SwapCrossMatchResultsResponse>(url, content);
+        }
+        
+        /// <summary>
+        /// 【逐仓】组合查询用户历史成交记录(新)
+        /// </summary>
+        /// <param name="tradeType"></param>
+        /// <param name="contract"></param>
+        /// <param name="pair"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="direct"></param>
+        /// <param name="fromId"></param>
+        /// <returns></returns>
+        public async Task<SwapMatchResultsExactResponse> SwapMatchResultsExactAsync(int tradeType,
+            string contract, string pair = null, long? startTime = null, long? endTime = null, string direct = null,
+            long? fromId = null)
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/linear-swap-api/v3/swap_matchresults_exact");
+
+            // content
+            string content = $",\"trade_type\": {tradeType}, \"contract\": \"{contract}\"";
+            if (pair != null)
+            {
+                content += $",\"pair\": \"{pair}\"";
+            }
+            if (startTime != null)
+            {
+                content += $",\"start_time\": {startTime}";
+            }
+            if (endTime != null)
+            {
+                content += $",\"end_time\": {endTime}";
+            }
+            if (direct != null)
+            {
+                content += $",\"direct\": \"{direct}\"";
+            }
+            if (fromId != null)
+            {
+                content += $",\"from_id\": {fromId}";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+
+            return await HttpRequest.PostAsync<SwapMatchResultsExactResponse>(url, content);
+        }
+        
+        /// <summary>
+        /// 【全仓】组合查询用户历史成交记录(新)
+        /// </summary>
+        /// <param name="tradeType"></param>
+        /// <param name="contract"></param>
+        /// <param name="pair"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="direct"></param>
+        /// <param name="fromId"></param>
+        /// <returns></returns>
+        public async Task<SwapCrossMatchResultsExactResponse> SwapCrossMatchResultsExactAsync(int tradeType,
+            string contract, string pair = null, long? startTime = null, long? endTime = null, string direct = null,
+            long? fromId = null)
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/linear-swap-api/v3/swap_cross_matchresults_exact");
+
+            // content
+            string content = $",\"trade_type\": {tradeType}, \"contract\": \"{contract}\"";
+            if (pair != null)
+            {
+                content += $",\"pair\": \"{pair}\"";
+            }
+            if (startTime != null)
+            {
+                content += $",\"start_time\": {startTime}";
+            }
+            if (endTime != null)
+            {
+                content += $",\"end_time\": {endTime}";
+            }
+            if (direct != null)
+            {
+                content += $",\"direct\": \"{direct}\"";
+            }
+            if (fromId != null)
+            {
+                content += $",\"from_id\": {fromId}";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+
+            return await HttpRequest.PostAsync<SwapCrossMatchResultsExactResponse>(url, content);
+        }
+        
+        /// <summary>
+        /// 【逐仓】查询持仓模式
+        /// </summary>
+        /// <param name="marginAccount"></param>
+        /// <returns></returns>
+        public async Task<SwapPositionSideResponse> SwapPositionSideAsync(string marginAccount)
+        {
+            // location
+            string location = $"/linear-swap-api/v1/swap_position_side";
+
+            // option
+            string option = null;
+            if (marginAccount != null)
+            {
+                option += $"&margin_account={marginAccount}";
+            }
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<SwapPositionSideResponse>(url);
+        }
+        
+        /// <summary>
+        /// 【全仓】查询持仓模式
+        /// </summary>
+        /// <param name="marginAccount"></param>
+        /// <returns></returns>
+        public async Task<SwapPositionSideResponse> SwapCrossPositionSideAsync(string marginAccount)
+        {
+            // location
+            string location = $"/linear-swap-api/v1/swap_cross_position_side";
+
+            // option
+            string option = null;
+            if (marginAccount != null)
+            {
+                option += $"&margin_account={marginAccount}";
+            }
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<SwapPositionSideResponse>(url);
+        }
     }
 }

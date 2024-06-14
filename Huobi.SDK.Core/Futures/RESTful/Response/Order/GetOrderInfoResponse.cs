@@ -95,6 +95,9 @@ namespace Huobi.SDK.Core.Futures.RESTful.Response.Order
 
             [JsonProperty("real_profit")]
             public double realProfit { get; set; }
+            
+            [JsonProperty("canceled_source", NullValueHandling = NullValueHandling.Ignore)]
+            public string canceledSource { get; set; }
         }
     }
 }

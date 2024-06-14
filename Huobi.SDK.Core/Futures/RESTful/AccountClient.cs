@@ -136,8 +136,10 @@ namespace Huobi.SDK.Core.Futures.RESTful
         /// get all sub account assets
         /// </summary>
         /// <param name="symbol">such as BTC-USDT</param>
+        /// <param name="direct">direct</param>
+        /// <param name="fromId">fromId</param>
         /// <returns></returns>
-        public async Task<GetAllSubAssetsResponse> GetAllSubAssetsAsync(string symbol = null)
+        public async Task<GetAllSubAssetsResponse> GetAllSubAssetsAsync(string symbol = null, string direct = null, string fromId = null)
         {
             // ulr
             string url = _urlBuilder.Build(POST_METHOD, "/api/v1/contract_sub_account_list");
@@ -147,6 +149,14 @@ namespace Huobi.SDK.Core.Futures.RESTful
             if (symbol != null)
             {
                 content = $",\"symbol\": \"{symbol}\"";
+            }
+            if (direct != null)
+            {
+                content = $",\"direct\": \"{direct}\"";
+            }
+            if (fromId != null)
+            {
+                content = $",\"fromId\": \"{fromId}\"";
             }
             if (content != null)
             {
@@ -443,14 +453,17 @@ namespace Huobi.SDK.Core.Futures.RESTful
             return await HttpRequest.PostAsync<GetAccountPositionResponse>(url, content);
         }
 
-        public async Task<AccountTransferResponse> AccountTransferAsync(string symbol, double amount, long subUid, string type)
+        public async Task<AccountTransferResponse> AccountTransferAsync(string symbol, double amount, long subUid, string type, long? clientCrderId = null)
         {
             // ulr
             string url = _urlBuilder.Build(POST_METHOD, "/api/v1/contract_master_sub_transfer");
 
             // content
             string content = $"{{ \"symbol\":\"{symbol}\", \"amount\":{amount}, \"sub_uid\":{subUid}, \"type\":\"{type}\" }}";
-            
+            if (clientCrderId != null)
+            {
+                content += $",\"client_order_id\": {clientCrderId}";
+            }
             return await HttpRequest.PostAsync<AccountTransferResponse>(url, content);
         }
         
@@ -480,6 +493,163 @@ namespace Huobi.SDK.Core.Futures.RESTful
             // content
             string content = $"{{ \"symbol\": \"{symbol}\" }}";
             return await HttpRequest.PostAsync<GetValidLeverRateResponse>(url, content);
+        }
+        
+        /// <summary>
+        /// 查询单个子账户持仓信息
+        /// </summary>
+        /// <param name="subUid"></param>
+        /// <param name="symbol"></param>
+        /// <returns></returns>
+        public async Task<ContractSubPositionInfoResponse> ContractSubPositionInfoAsync(long subUid, string symbol = null)
+        {
+            // ulr
+            string url = _urlBuilder.Build(POST_METHOD, "/api/v1/contract_sub_position_info");
+
+            // content
+            string content = null;
+            content += $",\"sub_uid\": {subUid}";
+            if (symbol != null)
+            {
+                content += $",\"symbol\": \"{symbol}\"";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+            return await HttpRequest.PostAsync<ContractSubPositionInfoResponse>(url, content);
+        }
+        
+        /// <summary>
+        /// 查询用户财务记录(新)
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="symbol"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="direct"></param>
+        /// <param name="fromId"></param>
+        /// <returns></returns>
+        public async Task<ContractFinancialRecordResponse> ContractFinancialRecordAsync(string symbol, string type,
+            long? startTime = null, long? endTime = null, string direct = null, long? fromId = null)
+        {
+            // ulr
+            string url = _urlBuilder.Build(POST_METHOD, "/api/v3/contract_financial_record");
+
+            // content
+            string content = null;
+            content += $",\"symbol\": \"{symbol}\"";
+            content += $",\"type\": \"{type}\"";
+            if (startTime != null)
+            {
+                content += $",\"start_time\": {startTime}";
+            }
+            if (endTime != null)
+            {
+                content += $",\"end_time\": {endTime}";
+            }
+            if (direct != null)
+            {
+                content += $",\"direct\": \"{direct}\"";
+            }
+            if (fromId != null)
+            {
+                content += $",\"from_id\": {fromId}";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+            return await HttpRequest.PostAsync<ContractFinancialRecordResponse>(url, content);
+        }
+        
+        /// <summary>
+        /// 组合查询用户财务记录(新)
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="symbol"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="direct"></param>
+        /// <param name="fromId"></param>
+        /// <returns></returns>
+        public async Task<ContractFinancialRecordExactResponse> ContractFinancialRecordExactAsync(string symbol, string type,
+            long? startTime = null, long? endTime = null, string direct = null, long? fromId = null)
+        {
+            // ulr
+            string url = _urlBuilder.Build(POST_METHOD, "/api/v3/contract_financial_record_exact");
+
+            // content
+            string content = null;
+            content += $",\"symbol\": \"{symbol}\"";
+            content += $",\"type\": \"{type}\"";
+            if (startTime != null)
+            {
+                content += $",\"start_time\": {startTime}";
+            }
+            if (endTime != null)
+            {
+                content += $",\"end_time\": {endTime}";
+            }
+            if (direct != null)
+            {
+                content += $",\"direct\": \"{direct}\"";
+            }
+            if (fromId != null)
+            {
+                content += $",\"from_id\": {fromId}";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+            return await HttpRequest.PostAsync<ContractFinancialRecordExactResponse>(url, content);
+        }
+        
+        /// <summary>
+        /// 查询子账户交易权限
+        /// </summary>
+        /// <param name="subUid"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="direct"></param>
+        /// <param name="fromId"></param>
+        /// <returns></returns>
+        public async Task<ContractSubAuthListResponse> ContractSubAuthListAsync(string subUid = null, long? startTime = null,
+            long? endTime = null, string direct = null, long? fromId = null)
+        {
+            // location
+            string location = "/api/v1/contract_sub_auth_list";
+
+            // option
+            string option = null;
+            if (subUid != null)
+            {
+                option += $"sub_uid={subUid}";
+            }
+            if (startTime != null)
+            {
+                option += $"start_time={startTime}";
+            }
+            if (endTime != null)
+            {
+                option += $"end_time={endTime}";
+            }
+            if (direct != null)
+            {
+                option += $"direct={direct}";
+            }
+            if (fromId != null)
+            {
+                option += $"from_id={fromId}";
+            }
+            if (option != null)
+            {
+                location += $"?{option}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<ContractSubAuthListResponse>(url);
         }
     }
 }

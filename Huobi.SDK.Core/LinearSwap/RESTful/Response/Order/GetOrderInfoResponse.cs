@@ -116,6 +116,15 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful.Response.Order
 
             [JsonProperty("reduce_only")]
             public int reduceOnly { get; set; }
+            
+            [JsonProperty("fee_amount", NullValueHandling = NullValueHandling.Ignore)]
+            public double feeAmount { get; set; }
+            
+            [JsonProperty("fee_quote_amount", NullValueHandling = NullValueHandling.Ignore)]
+            public double feeQuoteAmount { get; set; }
+            
+            [JsonProperty("canceled_source", NullValueHandling = NullValueHandling.Ignore)]
+            public string canceledSource { get; set; }
         }
     }
 }

@@ -76,6 +76,18 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful.Response.Account
             [JsonProperty("pair", NullValueHandling = NullValueHandling.Ignore)]
             public string pair { get; set; }
 
+            [JsonProperty("withdraw_available", NullValueHandling = NullValueHandling.Ignore)]
+            public double withdrawAvailable { get; set; }
+            
+            [JsonProperty("risk_rate", NullValueHandling = NullValueHandling.Ignore)]
+            public double riskRate { get; set; }
+            
+            [JsonProperty("liquidation_price", NullValueHandling = NullValueHandling.Ignore)]
+            public double liquidationPrice { get; set; }
+            
+            [JsonProperty("adl_risk_percent", NullValueHandling = NullValueHandling.Ignore)]
+            public double adlRiskPercent { get; set; }
+            
             [JsonProperty("business_type", NullValueHandling = NullValueHandling.Ignore)]
             public string businessType { get; set; }
 

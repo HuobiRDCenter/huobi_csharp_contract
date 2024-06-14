@@ -169,12 +169,16 @@ namespace Huobi.SDK.Core.Futures.RESTful
         /// </summary>
         /// <param name="symbol"></param>
         /// <param name="type"></param>
+        /// <param name="depth"></param>
         /// <returns></returns>
-        public async Task<GetDepthResponse> GetDepthAsync(string symbol, string type)
+        public async Task<GetDepthResponse> GetDepthAsync(string symbol, string type, int? depth = null)
         {
             // location
             string location = $"/market/depth?symbol={symbol}&type={type}";
-
+            if (depth != null)
+            {
+                location += $"&depth={depth}";
+            }
             string url = _urlBuilder.Build(location);
             return await HttpRequest.GetAsync<GetDepthResponse>(url);
         }
@@ -624,6 +628,26 @@ namespace Huobi.SDK.Core.Futures.RESTful
 
             string url = _urlBuilder.Build(location);
             return await HttpRequest.GetAsync<GetBboResponse>(url);
+        }
+        
+        public async Task<BatchMergedResponse> BatchMergedAsync(string symbol = null)
+        {
+            // location
+            string location = "/v2/market/detail/batch_merged";
+
+            // option
+            string option = null;
+            if (symbol != null)
+            {
+                option += $"symbol={symbol}";
+            }
+            if (option != null)
+            {
+                location += $"?{option}";
+            }
+
+            string url = _urlBuilder.Build(location);
+            return await HttpRequest.GetAsync<BatchMergedResponse>(url);
         }
 
     }

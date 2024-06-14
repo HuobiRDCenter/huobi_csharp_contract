@@ -43,6 +43,9 @@ namespace Huobi.SDK.Core.Futures.RESTful.Response.Market
             public string low { get; set; }
 
             public string vol { get; set; }
+            
+            [JsonProperty("number_of-msg", NullValueHandling = NullValueHandling.Ignore)]
+            public string numberOf { get; set; }
 
             public long ts { get; set; }
         }

@@ -45,6 +45,18 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful.Response.Account
 
             [JsonProperty("trade_partition")]
             public string tradePartition { get; set; }
+            
+            [JsonProperty("lever_rate", NullValueHandling = NullValueHandling.Ignore)]
+            public int leverRate { get; set; }
+            
+            [JsonProperty("buy_limit_value", NullValueHandling = NullValueHandling.Ignore)]
+            public double buyLimitValue { get; set; }
+            
+            [JsonProperty("sell_limit_value", NullValueHandling = NullValueHandling.Ignore)]
+            public double sellLimitValue { get; set; }
+            
+            [JsonProperty("mark_price", NullValueHandling = NullValueHandling.Ignore)]
+            public double markPrice { get; set; }
         }
     }
 }

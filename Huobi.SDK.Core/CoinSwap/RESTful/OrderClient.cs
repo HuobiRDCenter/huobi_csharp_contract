@@ -420,5 +420,195 @@ namespace Huobi.SDK.Core.CoinSwap.RESTful
             return await HttpRequest.PostAsync<GetHisMatchExactResponse>(url, content);
         }
         
+        /// <summary>
+        /// 获取合约历史委托(新)
+        /// </summary>
+        /// <param name="tradeType"></param>
+        /// <param name="type"></param>
+        /// <param name="status"></param>
+        /// <param name="contract"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="direct"></param>
+        /// <param name="fromId"></param>
+        /// <returns></returns>
+        public async Task<SwapHisOrdersResponse> SwapHisOrdersAsync(string contract, int tradeType, int type, string status,
+            long? startTime = null, long? endTime = null, 
+            string direct = null, long? fromId = null)
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/swap-api/v3/swap_hisorders");
+
+            // content
+            string content = $",\"contract\": \"{contract}\",\"trade_type\": {tradeType},\"type\": {type},\"status\": \"{status}\"";
+            if (contract != null)
+            {
+                content += $",\"contract\": \"{contract}\"";
+            }
+            if (startTime != null)
+            {
+                content += $",\"start_time\": {startTime}";
+            }
+            if (endTime != null)
+            {
+                content += $",\"end_time\": {endTime}";
+            }
+            if (direct != null)
+            {
+                content += $",\"direct\": \"{direct}\"";
+            }
+            if (fromId != null)
+            {
+                content += $",\"from_id\": {fromId}";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+
+            return await HttpRequest.PostAsync<SwapHisOrdersResponse>(url, content);
+        }
+        
+        /// <summary>
+        /// 组合查询合约历史委托(新)
+        /// </summary>
+        /// <param name="tradeType"></param>
+        /// <param name="type"></param>
+        /// <param name="status"></param>
+        /// <param name="contract"></param>
+        /// <param name="priceType"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="direct"></param>
+        /// <param name="fromId"></param>
+        /// <returns></returns>
+        public async Task<SwapHisOrdersExactResponse> SwapHisOrdersExactAsync(string contract, int tradeType, int type, string status,
+            long? startTime = null, long? endTime = null, 
+            string direct = null, long? fromId = null, string priceType = null)
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/swap-api/v3/swap_hisorders_exact");
+
+            // content
+            string content = $",\"contract\": \"{contract}\",\"trade_type\": {tradeType},\"type\": {type},\"status\": \"{status}\"";
+            if (contract != null)
+            {
+                content += $",\"contract\": \"{contract}\"";
+            }
+            if (startTime != null)
+            {
+                content += $",\"start_time\": {startTime}";
+            }
+            if (endTime != null)
+            {
+                content += $",\"end_time\": {endTime}";
+            }
+            if (direct != null)
+            {
+                content += $",\"direct\": \"{direct}\"";
+            }
+            if (fromId != null)
+            {
+                content += $",\"from_id\": {fromId}";
+            }
+            if (priceType != null)
+            {
+                content += $",\"price_type\": \"{priceType}\"";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+
+            return await HttpRequest.PostAsync<SwapHisOrdersExactResponse>(url, content);
+        }
+        
+        /// <summary>
+        /// 获取历史成交记录(新)
+        /// </summary>
+        /// <param name="contract"></param>
+        /// <param name="tradeType"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="direct"></param>
+        /// <param name="fromId"></param>
+        /// <returns></returns>
+        public async Task<SwapMatchResultsResponse> SwapMatchResultsAsync(string contract, int tradeType,
+            long? startTime = null, long? endTime = null, 
+            string direct = null, long? fromId = null)
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/swap-api/v3/swap_matchresults");
+
+            // content
+            string content = $",\"contract\": \"{contract}\"";
+            content += $",\"trade_type\": {tradeType}";
+            if (startTime != null)
+            {
+                content += $",\"start_time\": {startTime}";
+            }
+            if (endTime != null)
+            {
+                content += $",\"end_time\": {endTime}";
+            }
+            if (direct != null)
+            {
+                content += $",\"direct\": \"{direct}\"";
+            }
+            if (fromId != null)
+            {
+                content += $",\"from_id\": {fromId}";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+
+            return await HttpRequest.PostAsync<SwapMatchResultsResponse>(url, content);
+        }
+        
+        /// <summary>
+        /// 组合查询历史成交记录接口(新)
+        /// </summary>
+        /// <param name="contract"></param>
+        /// <param name="tradeType"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="direct"></param>
+        /// <param name="fromId"></param>
+        /// <returns></returns>
+        public async Task<SwapMatchResultsResponse> SwapMatchResultsExactAsync(string contract, int tradeType,
+            long? startTime = null, long? endTime = null, 
+            string direct = null, long? fromId = null)
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/swap-api/v3/swap_matchresults_exact");
+
+            // content
+            string content = $",\"contract\": \"{contract}\",\"trade_type\": {tradeType}";
+            if (startTime != null)
+            {
+                content += $",\"start_time\": {startTime}";
+            }
+            if (endTime != null)
+            {
+                content += $",\"end_time\": {endTime}";
+            }
+            if (direct != null)
+            {
+                content += $",\"direct\": \"{direct}\"";
+            }
+            if (fromId != null)
+            {
+                content += $",\"from_id\": {fromId}";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+
+            return await HttpRequest.PostAsync<SwapMatchResultsResponse>(url, content);
+        }
+        
     }
 }

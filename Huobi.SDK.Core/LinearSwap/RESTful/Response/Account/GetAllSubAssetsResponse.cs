@@ -58,6 +58,9 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful.Response.Account
 
                 [JsonProperty("trade_partition")]
                 public string tradePartition { get; set; }
+                
+                [JsonProperty("query_id", NullValueHandling = NullValueHandling.Ignore)]
+                public long queryId { get; set; }
             }
         }
     }

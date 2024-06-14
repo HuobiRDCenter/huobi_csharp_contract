@@ -59,6 +59,9 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful.Response.Account
 
             [JsonProperty("risk_rate", NullValueHandling = NullValueHandling.Ignore)]
             public double riskRate { get; set; }
+            
+            [JsonProperty("new_risk_rate", NullValueHandling = NullValueHandling.Ignore)]
+            public double newRiskRate { get; set; }
 
             [JsonProperty("liquidation_price", NullValueHandling = NullValueHandling.Ignore)]
             public double liquidationPrice { get; set; }
@@ -80,6 +83,9 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful.Response.Account
 
             [JsonProperty("trade_partition")]
             public string tradePartition { get; set; }
+            
+            [JsonProperty("adl_risk_percent", NullValueHandling = NullValueHandling.Ignore)]
+            public double adlRiskPercent { get; set; }
             
             public class Positions
             {
@@ -133,6 +139,12 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful.Response.Account
 
                 [JsonProperty("position_mode")]
                 public string positionMode { get; set; }
+                
+                [JsonProperty("new_risk_rate")]
+                public string newRiskRate { get; set; }
+                
+                [JsonProperty("adl_risk_percent", NullValueHandling = NullValueHandling.Ignore)]
+                public string adlRiskPercent { get; set; }
             }
 
             [JsonProperty("contract_detail", NullValueHandling = NullValueHandling.Ignore)]

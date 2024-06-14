@@ -43,6 +43,9 @@ namespace Huobi.SDK.Core.Futures.RESTful.Response.Account
 
                 [JsonProperty("risk_rate", NullValueHandling = NullValueHandling.Ignore)]
                 public double riskRate { get; set; }
+                
+                [JsonProperty("query_id", NullValueHandling = NullValueHandling.Ignore)]
+                public long queryId { get; set; }
             }
         }
     }

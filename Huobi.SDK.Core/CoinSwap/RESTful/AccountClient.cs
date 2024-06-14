@@ -155,8 +155,10 @@ namespace Huobi.SDK.Core.CoinSwap.RESTful
         /// get all sub account assets
         /// </summary>
         /// <param name="contractCode">such as BTC-USDT</param>
+        /// <param name="direct">direct</param>
+        /// <param name="fromId">fromId</param>
         /// <returns></returns>
-        public async Task<GetAllSubAssetsResponse> GetAllSubAssetsAsync(string contractCode = null)
+        public async Task<GetAllSubAssetsResponse> GetAllSubAssetsAsync(string contractCode = null, string direct = null, long? fromId = null)
         {
             // ulr
             string url = _urlBuilder.Build(POST_METHOD, "/swap-api/v1/swap_sub_account_list");
@@ -166,6 +168,14 @@ namespace Huobi.SDK.Core.CoinSwap.RESTful
             if (contractCode != null)
             {
                 content = $",\"contract_code\": \"{contractCode}\"";
+            }
+            if (direct != null)
+            {
+                content = $",\"direct\": \"{direct}\"";
+            }
+            if (fromId != null)
+            {
+                content = $",\"fromId\": {fromId}";
             }
             if (content != null)
             {
@@ -419,16 +429,16 @@ namespace Huobi.SDK.Core.CoinSwap.RESTful
         /// </summary>
         /// <param name="marginAccount"></param>
         /// <returns></returns>
-        public async Task<GetTransferLimitResponse> GetTransferLimitAsync(string marginAccount = null)
+        public async Task<GetTransferLimitResponse> GetTransferLimitAsync(string contractCode = null)
         {
             // ulr
             string url = _urlBuilder.Build(POST_METHOD, "/swap-api/v1/swap_transfer_limit");
 
             // content
             string content = null;
-            if (marginAccount != null)
+            if (contractCode != null)
             {
-                content += $",\"margin_account\": \"{marginAccount}\"";
+                content += $",\"contract_code\": \"{contractCode}\"";
             }
             if (content != null)
             {
@@ -467,14 +477,19 @@ namespace Huobi.SDK.Core.CoinSwap.RESTful
         /// <param name="contractCode"></param>
         /// <param name="amount"></param>
         /// <param name="type"></param>
+        /// <param name="clientOrderId"></param>
         /// <returns></returns>
-        public async Task<AccountTransferResponse> AccountTransferAsync(long subUid, string contractCode, double amount, string type)
+        public async Task<AccountTransferResponse> AccountTransferAsync(long subUid, string contractCode, double amount, string type, long? clientOrderId = null)
         {
             // ulr
             string url = _urlBuilder.Build(POST_METHOD, "/swap-api/v1/swap_master_sub_transfer");
 
             // content
             string content = $",\"sub_uid\":{subUid}, \"contract_code\":\"{contractCode}\", \"amount\":{amount}, \"type\":\"{type}\"";
+            if (clientOrderId != null)
+            {
+                content += $",\"client_order_id\": {clientOrderId}";
+            }
             if (content != null)
             {
                 content = $"{{ {content.Substring(1)} }}";
@@ -493,6 +508,144 @@ namespace Huobi.SDK.Core.CoinSwap.RESTful
 
             // content is null
             return await HttpRequest.GetAsync<GetApiTradingStatusResponse>(url);
+        }
+        
+        /// <summary>
+        /// 查询用户财务记录(新)
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="symbol"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="direct"></param>
+        /// <param name="fromId"></param>
+        /// <returns></returns>
+        public async Task<SwapFinancialRecordResponse> SwapFinancialRecordAsync(string contract, string type = null,
+            long? startTime = null, long? endTime = null, string direct = null, long? fromId = null)
+        {
+            // ulr
+            string url = _urlBuilder.Build(POST_METHOD, "/swap-api/v3/swap_financial_record");
+
+            // content
+            string content = null;
+            content += $",\"contract\": \"{contract}\"";
+            if (type != null)
+            {
+                content += $",\"type\": \"{type}\"";
+            }
+            if (startTime != null)
+            {
+                content += $",\"start_time\": {startTime}";
+            }
+            if (endTime != null)
+            {
+                content += $",\"end_time\": {endTime}";
+            }
+            if (direct != null)
+            {
+                content += $",\"direct\": \"{direct}\"";
+            }
+            if (fromId != null)
+            {
+                content += $",\"from_id\": {fromId}";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+            return await HttpRequest.PostAsync<SwapFinancialRecordResponse>(url, content);
+        }
+        
+        /// <summary>
+        /// 组合查询用户财务记录(新)
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="contract"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="direct"></param>
+        /// <param name="fromId"></param>
+        /// <returns></returns>
+        public async Task<SwapFinancialRecordResponse> SwapFinancialRecordExactAsync(string contract, string type = null,
+            long? startTime = null, long? endTime = null, string direct = null, long? fromId = null)
+        {
+            // ulr
+            string url = _urlBuilder.Build(POST_METHOD, "/swap-api/v3/swap_financial_record_exact");
+
+            // content
+            string content = null;
+            content += $",\"contract\": \"{contract}\"";
+            if (type != null)
+            {
+                content += $",\"type\": \"{type}\"";
+            }
+            if (startTime != null)
+            {
+                content += $",\"start_time\": {startTime}";
+            }
+            if (endTime != null)
+            {
+                content += $",\"end_time\": {endTime}";
+            }
+            if (direct != null)
+            {
+                content += $",\"direct\": \"{direct}\"";
+            }
+            if (fromId != null)
+            {
+                content += $",\"from_id\": {fromId}";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+            return await HttpRequest.PostAsync<SwapFinancialRecordResponse>(url, content);
+        }
+        
+        /// <summary>
+        /// 查询子账户交易权限
+        /// </summary>
+        /// <param name="subUid"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="direct"></param>
+        /// <param name="fromId"></param>
+        /// <returns></returns>
+        public async Task<SwapSubAuthListResponse> SwapSubAuthListAsync(string subUid = null, long? startTime = null,
+            long? endTime = null, string direct = null, long? fromId = null)
+        {
+            // location
+            string location = "/swap-api/v1/swap_sub_auth_list";
+
+            // option
+            string option = null;
+            if (subUid != null)
+            {
+                option += $"sub_uid={subUid}";
+            }
+            if (startTime != null)
+            {
+                option += $"start_time={startTime}";
+            }
+            if (endTime != null)
+            {
+                option += $"end_time={endTime}";
+            }
+            if (direct != null)
+            {
+                option += $"direct={direct}";
+            }
+            if (fromId != null)
+            {
+                option += $"from_id={fromId}";
+            }
+            if (option != null)
+            {
+                location += $"?{option}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<SwapSubAuthListResponse>(url);
         }
     }
 }

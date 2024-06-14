@@ -27,8 +27,8 @@ namespace Huobi.SDK.Core.Futures.RESTful.Response.Market
             [JsonProperty("insurance_fund")]
             public double insuranceFund { get; set; }
 
-            [JsonProperty("contract_code")]
-            public string contractCode { get; set; }
+            [JsonProperty("symbol")]
+            public string symbol { get; set; }
             
         }
     }

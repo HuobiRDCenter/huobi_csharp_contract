@@ -26,6 +26,9 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful.Response.Account
         {
             [JsonProperty("order_id")]
             public string orderId { get; set; }
+            
+            [JsonProperty("client_order_id", NullValueHandling = NullValueHandling.Ignore)]
+            public long clientOrderId { get; set; }
         }
     }
 }

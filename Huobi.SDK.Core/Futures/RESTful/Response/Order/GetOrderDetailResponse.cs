@@ -58,6 +58,9 @@ namespace Huobi.SDK.Core.Futures.RESTful.Response.Order
             public double marginFrozen { get; set; }
 
             public double profit { get; set; }
+            
+            [JsonProperty("canceled_source", NullValueHandling = NullValueHandling.Ignore)]
+            public string canceledSource { get; set; }
 
             [JsonProperty("instrument_price")]
             public double instrumentPrice { get; set; }

@@ -689,6 +689,26 @@ namespace Huobi.SDK.Core.CoinSwap.RESTful
             string url = _urlBuilder.Build(location);
             return await HttpRequest.GetAsync<GetEstimatedSettlementPriceResponse>(url);
         }
+        
+        public async Task<BatchMergedResponse> BatchMergedAsync(string contractCode = null)
+        {
+            // location
+            string location = $"/v2/swap-ex/market/detail/batch_merged";
+
+            // option
+            string option = null;
+            if (contractCode != null)
+            {
+                option += $"?contract_code={contractCode}";
+            }
+            if (option != null)
+            {
+                location += $"{option}";
+            }
+
+            string url = _urlBuilder.Build(location);
+            return await HttpRequest.GetAsync<BatchMergedResponse>(url);
+        }
 
     }
 }

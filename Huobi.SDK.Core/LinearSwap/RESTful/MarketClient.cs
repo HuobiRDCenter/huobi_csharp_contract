@@ -28,10 +28,11 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
         /// <param name="contractType"></param>
         /// <param name="pair"></param>
         /// <param name="tradePartition"></param>
+        /// <param name="supportMarginMode"></param>
         /// <returns></returns>
         public async Task<GetContractInfoResponse> GetContractInfoAsync(string contractCode = null, string businessType = null,
                                                                         string contractType = null, string pair = null,
-                                                                        string tradePartition = null)
+                                                                        string tradePartition = null, string supportMarginMode = null)
         {
             // location
             string location = "/linear-swap-api/v1/swap_contract_info";
@@ -57,6 +58,10 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
             if (tradePartition != null)
             {
                 option += $"&trade_partition={tradePartition}";
+            }
+            if (supportMarginMode != null)
+            {
+                option += $"&support_margin_mode={supportMarginMode}";
             }
             if (option != null)
             {
@@ -1052,5 +1057,38 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
             return await HttpRequest.GetAsync<GetEstimatedSettlementPriceResponse>(url);
         }
 
+        
+        /// <summary>
+        /// 【通用】批量获取聚合行情（V2）
+        /// </summary>
+        /// <param name="contractCode"></param>
+        /// <param name="businessType"></param>
+        /// <param name="contractType"></param>
+        /// <param name="pair"></param>
+        /// <param name="tradePartition"></param>
+        /// <returns></returns>
+        public async Task<GetDetailBatchMergedResponse> GetDetailBatchMergedAsync(string contractCode = null, string businessType = null)
+        {
+            // location
+            string location = $"/v2/linear-swap-ex/market/detail/batch_merged";
+
+            // option
+            string option = null;
+            if (contractCode != null)
+            {
+                option += $"&contract_code={contractCode}";
+            }
+            if (businessType != null)
+            {
+                option += $"&business_type={businessType}";
+            }
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(location);
+            return await HttpRequest.GetAsync<GetDetailBatchMergedResponse>(url);
+        }
     }
 }

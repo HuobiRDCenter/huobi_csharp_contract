@@ -773,7 +773,7 @@ namespace Huobi.SDK.Core.Test.LinearSwap
                                                    string contractType, string pair,
                                                    string businessType, string tradePartition)
         {
-            var result = client.CrossGetLeverPositionLimitAsync(contractCode, leverRate, contractType, pair, businessType, tradePartition).Result;
+            var result = client.CrossGetLeverPositionLimitAsync(contractCode, leverRate).Result;
             string strret = JsonConvert.SerializeObject(result, Formatting.Indented);
             Console.WriteLine(strret);
             Assert.Equal("ok", result.status);

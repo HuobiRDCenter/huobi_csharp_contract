@@ -26,7 +26,7 @@ namespace Huobi.SDK.Core.CoinSwap.RESTful.Response.Account
             [JsonProperty("available_level_rate")]
             public string availableLeverRate { get; set; }
 
-            [JsonProperty("margin_mode")]
+            [JsonProperty("margin_mode", NullValueHandling = NullValueHandling.Ignore)]
             public string marginMode { get; set; }
         }
     }

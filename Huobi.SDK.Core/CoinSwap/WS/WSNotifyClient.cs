@@ -391,5 +391,54 @@ namespace Huobi.SDK.Core.CoinSwap.WS
         }
         #endregion
 
+        #region contract elements
+        public delegate void _OnSubContractElementsResponse(SubContractElementsResponse data);
+
+        /// <summary>
+        /// sub contract elements
+        /// </summary>
+        /// <param name="contractCode"></param>
+        /// <param name="callbackFun"></param>
+        /// <param name="cid"></param>
+        /// <param name="businessType"></param>
+        /// <param name="tradePartition"></param>
+        public void SubContractElements(string contractCode, _OnSubContractElementsResponse callbackFun, string cid = WebSocketOp.DEFAULT_ID,
+                                         string businessType = null, string tradePartition = null)
+        {
+            string ch = $"public.{contractCode}.contract_elements";
+            WSOpData opData = new WSOpData { op = "sub", cid = cid, topic = ch, businessType = businessType, tradePartition = tradePartition };
+            string sub_str = JsonConvert.SerializeObject(opData);
+
+            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubContractElementsResponse), true, this.host,
+                                            this.accessKey, this.secretKey);
+            wsop.Connect();
+            if (!allWsop.ContainsKey(ch))
+            {
+                allWsop.Add(ch, wsop);
+            }
+        }
+
+        /// <summary>
+        /// unsub contract elements
+        /// </summary>
+        /// <param name="contractCode"></param>
+        /// <param name="cid"></param>
+        /// <param name="businessType"></param>
+        /// <param name="tradePartition"></param>
+        public void UnsubContractElements(string contractCode, string cid = WebSocketOp.DEFAULT_ID,
+                                           string businessType = null, string tradePartition = null)
+        {
+            string ch = $"public.{contractCode}.contract_elements";
+            WSOpData opData = new WSOpData { op = "unsub", cid = cid, topic = ch, businessType = businessType, tradePartition = tradePartition };
+            string unsub_str = JsonConvert.SerializeObject(opData);
+
+            if(!allWsop.ContainsKey(ch))
+            {
+                return;
+            }
+            allWsop[ch].SendMsg(unsub_str);
+            allWsop.Remove(ch);
+        }
+        #endregion
     }
 }

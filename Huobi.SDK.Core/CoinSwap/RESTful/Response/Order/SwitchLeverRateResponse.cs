@@ -29,7 +29,7 @@ namespace Huobi.SDK.Core.CoinSwap.RESTful.Response.Order
             [JsonProperty("lever_rate")]
             public int leverRate { get; set; }
 
-            [JsonProperty("margin_mode")]
+            [JsonProperty("margin_mode", NullValueHandling = NullValueHandling.Ignore)]
             public string marginMode { get; set; }
         }
     }

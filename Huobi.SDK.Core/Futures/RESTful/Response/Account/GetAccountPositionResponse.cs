@@ -103,6 +103,9 @@ namespace Huobi.SDK.Core.Futures.RESTful.Response.Account
 
                 [JsonProperty("last_price")]
                 public double lastPrice { get; set; }
+                
+                [JsonProperty("adl_risk_percent", NullValueHandling = NullValueHandling.Ignore)]
+                public double adlRiskPercent { get; set; }
             }
         }
     }

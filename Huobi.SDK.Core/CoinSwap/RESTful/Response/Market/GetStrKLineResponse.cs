@@ -44,6 +44,9 @@ namespace Huobi.SDK.Core.CoinSwap.RESTful.Response.Market
             public string high { get; set; }
 
             public string amount { get; set; }
+            
+            [JsonProperty("trade_turnover", NullValueHandling = NullValueHandling.Ignore)]
+            public string tradeTurnover { get; set; }
         }
     }
 }
