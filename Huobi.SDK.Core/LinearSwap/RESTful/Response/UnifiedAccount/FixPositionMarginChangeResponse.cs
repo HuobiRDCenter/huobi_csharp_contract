@@ -19,6 +19,21 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful.Response.UnifiedAccount
         
         public class FixPositionMarginChange
         {
+            [JsonProperty("amount", NullValueHandling = NullValueHandling.Ignore)]
+            public double Amount { get; set; }
+            
+            [JsonProperty("asset", NullValueHandling = NullValueHandling.Ignore)]
+            public string Asset { get; set; }
+            
+            [JsonProperty("contract_code", NullValueHandling = NullValueHandling.Ignore)]
+            public string ContractCode { get; set; }
+            
+            [JsonProperty("type", NullValueHandling = NullValueHandling.Ignore)]
+            public int Type { get; set; }
+            
+            [JsonProperty("direction", NullValueHandling = NullValueHandling.Ignore)]
+            public int Direction { get; set; }
+            
             [JsonProperty("order_id", NullValueHandling = NullValueHandling.Ignore)]
             public string OrderId { get; set; }
 
