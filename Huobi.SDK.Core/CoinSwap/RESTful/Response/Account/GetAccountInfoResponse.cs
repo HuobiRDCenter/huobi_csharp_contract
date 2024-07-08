@@ -47,9 +47,6 @@ namespace Huobi.SDK.Core.CoinSwap.RESTful.Response.Account
             [JsonProperty("margin_available")]
             public double marginAvailable { get; set; }
 
-            [JsonProperty("profit_real")]
-            public double profitReal { get; set; }
-
             [JsonProperty("profit_unreal")]
             public double profitUnreal { get; set; }
 
