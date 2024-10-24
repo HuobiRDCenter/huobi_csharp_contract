@@ -8,10 +8,12 @@ namespace Huobi.SDK.Core.LinearSwap.WS
     {
         private string host = null;
         private string path = null;
+        private string sign=null;
 
-        public WSSystemClient(string host = Host.FUTURES)
+        public WSSystemClient(string sign,string host = Host.FUTURES)
         {
             this.host = host;
+            this.sign=sign;
             this.path = "/center-notification";
         }
 
@@ -29,7 +31,7 @@ namespace Huobi.SDK.Core.LinearSwap.WS
             WSOpData subData = new WSOpData() { op = "sub", topic = ch, cid = cid };
             string sub_str = JsonConvert.SerializeObject(subData);
 
-            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubHeartBeatResponse), true, this.host);
+            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubHeartBeatResponse),this.sign, true, this.host);
             wsop.Connect();
         }
         #endregion

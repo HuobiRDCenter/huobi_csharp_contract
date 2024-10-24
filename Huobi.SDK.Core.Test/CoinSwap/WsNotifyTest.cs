@@ -16,7 +16,7 @@ namespace Huobi.SDK.Core.Test.CoinSwap
         [InlineData("*")]
         public void OrdersTest(string contractCode)
         {
-            WSNotifyClient client = new WSNotifyClient(config["AccessKey"], config["SecretKey"]);
+            WSNotifyClient client = new WSNotifyClient(config["AccessKey"], config["SecretKey"], config["Sign"]);
             client.SubOrders(contractCode, delegate (SubOrdersResponse data)
             {
                 Console.WriteLine(JsonConvert.SerializeObject(data));

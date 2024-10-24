@@ -9,10 +9,10 @@ namespace Huobi.SDK.Core.Test.RequestBuilder
         [Fact]
         public void Build_NoRequestParameter_Success()
         {
-            var builder = new PrivateUrlBuilder("abcdefg-hijklmn-opqrst-uvwxyz", "12345-67890-12345-67890", "api.huobi.pro");
+            var builder = new PrivateUrlBuilder("abcdefg-hijklmn-opqrst-uvwxyz", "12345-67890-12345-67890", "api.huobi.pro","256");
             string result = builder.Build("GET", "/v1/account/accounts");
 
-            string expected = @"https://api.huobi.pro/v1/account/accounts?AccessKeyId=abcdefg-hijklmn-opqrst-uvwxyz&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2020-04-01T12%3A34%3A56&Signature=3IUZcEak4IIRrh7%2FidFrP2Jj77MaWGXR%2FoQbe9gL4%2BI%3D";
+            string expected = @"https://api.huobi.pro/v1/account/accounts?AccessKeyId=abcdefg-hijklmn-opqrst-uvwxyz&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2024-10-24T01%3A48%3A53&Signature=vMtLuwZJGfiVNSGaEcP8sRpQ6B%2Fs6iye8baeIZccF6A%3D";
             Assert.Equal(expected, result);
         }
     }

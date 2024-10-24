@@ -18,6 +18,9 @@ namespace Huobi.SDK.Core.WSBase
         [JsonProperty("SignatureMethod")]
         public string signatureMethod { get { return "HmacSHA256"; } }
 
+        [JsonProperty("SignatureMethodEd25519")]
+        public string signatureMethodEd25519 { get { return "Ed25519"; } }
+
         [JsonProperty("SignatureVersion")]
         public string signatureVersion { get { return "2"; } }
 

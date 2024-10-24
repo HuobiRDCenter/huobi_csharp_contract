@@ -15,7 +15,7 @@ namespace Huobi.SDK.Core.Test.LinearSwap
         public void HeartBeatTest()
         {
             bool has_data = false;
-            WSSystemClient client = new WSSystemClient();
+            WSSystemClient client = new WSSystemClient(config["Sign"]);
             client.SubHeartBeat(delegate (SubHeartBeatResponse data)
             {
                 Console.WriteLine(JsonConvert.SerializeObject(data));
