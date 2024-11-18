@@ -1203,6 +1203,32 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
             string url = _urlBuilder.Build(GET_METHOD, location);
             return await HttpRequest.GetAsync<SwapSubAuthListResponse>(url);
         }
+        
+        public async Task<SwapAccountBalanceResponse> SwapAccountBalanceAsync()
+        {
+            // location
+            string location = $"/v5/account/balance";
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<SwapAccountBalanceResponse>(url);
+        }
+        
+        public async Task<SwapMultiAssetsMarginResponse> SwapMultiAssetsMarginAsync(int assetsMode)
+        {
+            // ulr
+            string url = _urlBuilder.Build(POST_METHOD, "/v5/account/multi_assets_margin");
+
+            // content
+            string content = null;
+
+            content += $",\"assets_mode\": \"{assetsMode}\"";
+            
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+            return await HttpRequest.PostAsync<SwapMultiAssetsMarginResponse>(url, content);
+        }
     }
 }
 
