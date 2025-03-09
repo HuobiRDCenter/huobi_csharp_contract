@@ -84,12 +84,6 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful.Response.Order
             public string MaintenanceMargin { get; set; }
 
             /// <summary>
-            /// 逐仓保证金，仅适用于逐仓
-            /// </summary>
-            [JsonProperty("margin")]
-            public string Margin { get; set; }
-
-            /// <summary>
             /// 未实现盈亏
             /// </summary>
             [JsonProperty("profit_unreal")]

@@ -1143,7 +1143,7 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
         public async Task<GetMultiAssetsMarginListResponse> GetMultiAssetsMarginListAsync()
         {
             // location
-            string location = $"/v5/market/multi_assets_margin/list";
+            string location = $"/v5/market/multi_assets_margin";
 
             // option
             string option = null;

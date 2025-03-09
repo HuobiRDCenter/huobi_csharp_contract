@@ -22,9 +22,6 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful.Response.Account
             [JsonProperty("equity")]
             public string equity { get; set; }
 
-            [JsonProperty("isolated_equity")]
-            public string isolatedEquity { get; set; }
-
             [JsonProperty("initial_margin")]
             public string initialMargin { get; set; }
 
@@ -63,15 +60,6 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful.Response.Account
 
                 [JsonProperty("profit_unreal")]
                 public string profitUnreal { get; set; }
-
-                [JsonProperty("isolated_available")]
-                public string isolatedAvailable { get; set; }
-
-                [JsonProperty("isolated_hold")]
-                public string isolatedHold { get; set; }
-
-                [JsonProperty("isolated_profit_unreal")]
-                public string isolatedProfitUnreal { get; set; }
 
                 [JsonProperty("initial_margin")]
                 public string initialMargin { get; set; }

@@ -1571,10 +1571,10 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
         public async Task<SwapTradeBatchOrderResponse> SwapTradeBatchOrderAsync(string contractCode, string marginMode,
             string positionSide, string side, string type, string priceMatch, string clientOrderId, string price, 
             string volume, bool reduceOnly, string timeInForce, string tpTriggerPrice, string tpOrderPrice, string tpType,
-            string tpTriggerPriceType, string slTriggerPrice, string slOrderPrice, string slType, string slTriggerPriceType)
+            string tpTriggerPriceType, string slTriggerPrice, string slOrderPrice, string slType, string slTriggerPriceType, bool priceProtect, bool triggerProtect)
         {
             // url
-            string url = _urlBuilder.Build(POST_METHOD, "/v5/trade/batchorder");
+            string url = _urlBuilder.Build(POST_METHOD, "/v5/trade/batch_orders");
 
             // content
             string content = $",\"contract_code\": {contractCode}, \"margin_mode\": \"{marginMode}\"";
@@ -1643,6 +1643,14 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
             {
                 content += $",\"sl_trigger_price_type\": {slTriggerPriceType}";
             }
+            if (priceProtect != false)
+            {
+                content += $",\"price_protect\": {priceProtect}";
+            }
+            if (triggerProtect != false)
+            {
+                content += $",\"trigger_protect\": {triggerProtect}";
+            }
             if (content != null)
             {
                 content = $"{{ {content.Substring(1)} }}";
@@ -1655,7 +1663,7 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
             string clientOrderId)
         {
             // url
-            string url = _urlBuilder.Build(POST_METHOD, "/v5/trade/order");
+            string url = _urlBuilder.Build(POST_METHOD, "/v5/trade/cancel_order");
 
             // content
             string content = $",\"contract_code\": {contractCode}";
@@ -1676,7 +1684,7 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
         }
         
         public async Task<SwapTradeOrderResponse> SwapTradeBatchOrdersAsync(string contractCode, string orderId,
-            string clientOrderId)
+            string clientOrderId, bool priceProtect, bool triggerProtect)
         {
             // url
             string url = _urlBuilder.Build(POST_METHOD, "/v5/trade/batchOrders");
@@ -1691,6 +1699,14 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
             {
                 content += $",\"client_order_id\": {clientOrderId}";
             }
+            if (priceProtect != false)
+            {
+                content += $",\"price_protect\": {priceProtect}";
+            }
+            if (triggerProtect != false)
+            {
+                content += $",\"trigger_protect\": {triggerProtect}";
+            }
             if (content != null)
             {
                 content = $"{{ {content.Substring(1)} }}";
@@ -1703,7 +1719,7 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
             string positionSide)
         {
             // url
-            string url = _urlBuilder.Build(POST_METHOD, "/v5/trade/allOrders");
+            string url = _urlBuilder.Build(POST_METHOD, "/v5/trade/cancel_all_orders");
 
             // content
             string content = $",\"contract_code\": {contractCode}";
@@ -1754,7 +1770,7 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
         public async Task<SwapTradeOrderResponse> SwapTradePositionAllAsync()
         {
             // url
-            string url = _urlBuilder.Build(POST_METHOD, "/v5/trade/positionAll");
+            string url = _urlBuilder.Build(POST_METHOD, "/v5/trade/position_all");
 
             // content
             string content = "";
@@ -1766,7 +1782,7 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
             return await HttpRequest.PostAsync<SwapTradeOrderResponse>(url, content);
         }
         
-        public async Task<SwapOrderOpensResponse> SwapOrderOpensAsync(string contractCode, string side, string marginMode, 
+        public async Task<SwapOrderOpensResponse> SwapOrderOpensAsync(string contractCode, string marginMode, 
             string orderId, string clientOrderId, long from, int limit, string direct)
         {
             // location
@@ -1777,10 +1793,6 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
             if (contractCode != null)
             {
                 option += $"&contract_code={contractCode}";
-            }
-            if (side != null)
-            {
-                option += $"&side={side}";
             }
             if (marginMode != null)
             {
@@ -1813,7 +1825,7 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
             string clientOrderId, string startTime, string endTime, long from, int limit, string direct)
         {
             // location
-            string location = $"/api/v5/trade/order/trades";
+            string location = $"/api/V5/trade/order/details";
 
             // option
             string option = null;
@@ -1852,9 +1864,8 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
             return await HttpRequest.GetAsync<SwapOrderTradesResponse>(url);
         }
         
-        public async Task<SwapOrderHistoryResponse> SwapOrderTradesAsync(string contractCode, string side, string orderId,
-            string clientOrderId, string state, string type, string priceMatch, string startTime, string endTime,
-            long from, int limit, string direct)
+        public async Task<SwapOrderHistoryResponse> SwapOrderTradesAsync(string contractCode, string state, string type, string priceMatch, string startTime, string endTime,
+            long from, int limit, string direct, string businessType)
         {
             // location
             string location = $"/api/v5/trade/order/history";
@@ -1864,18 +1875,6 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
             if (contractCode != null)
             {
                 option += $"&contract_code={contractCode}";
-            }
-            if (side != null)
-            {
-                option += $"&side={side}";
-            }
-            if (orderId != null)
-            {
-                option += $"&order_id={orderId}";
-            }
-            if (clientOrderId != null)
-            {
-                option += $"&client_order_id={clientOrderId}";
             }
             if (state != null)
             {
@@ -1896,6 +1895,10 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
             if (endTime != null)
             {
                 option += $"&end_time={endTime}";
+            }
+            if (businessType != null)
+            {
+                option += $"&business_type={businessType}";
             }
             option += $"&from={from}";
             option += $"&limit={limit}";
