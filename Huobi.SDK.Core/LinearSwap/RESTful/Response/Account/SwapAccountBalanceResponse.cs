@@ -57,6 +57,9 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful.Response.Account
 
                 [JsonProperty("available")]
                 public string available { get; set; }
+                
+                [JsonProperty("withdraw_available")]
+                public string withdrawAvailable { get; set; }
 
                 [JsonProperty("profit_unreal")]
                 public string profitUnreal { get; set; }

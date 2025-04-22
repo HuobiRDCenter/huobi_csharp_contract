@@ -96,6 +96,12 @@ namespace Huobi.SDK.Core.LinearSwap.WS.Response.Notify
 
                 [JsonProperty("pair")]
                 public string pair { get; set; }
+                
+                [JsonProperty("voucher")]
+                public string voucher { get; set; }
+                
+                [JsonProperty("voucher_value")]
+                public string voucherValue { get; set; }
 
                 [JsonProperty("business_type")]
                 public string businessType { get; set; }
