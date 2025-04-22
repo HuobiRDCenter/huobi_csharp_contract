@@ -1090,5 +1090,70 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
             string url = _urlBuilder.Build(location);
             return await HttpRequest.GetAsync<GetDetailBatchMergedResponse>(url);
         }
+        
+        public async Task<GetMarketRiskLimitResponse> GetMarketRiskLimitAsync(string contractCode,
+            string contractType, string marginMode, string tier)
+        {
+            // location
+            string location = $"/v5/market/risk_limit";
+
+            // option
+            string option = null;
+            if (contractCode != null)
+            {
+                option += $"&contract_code={contractCode}";
+            }
+            if (contractType != null)
+            {
+                option += $"&contract_type={contractType}";
+            }
+            if (marginMode != null)
+            {
+                option += $"&margin_mode={marginMode}";
+            }
+            if (tier != null)
+            {
+                option += $"&tier={tier}";
+            }
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(location);
+            return await HttpRequest.GetAsync<GetMarketRiskLimitResponse>(url);
+        }
+        
+        public async Task<GetAssetsDeductionCurrencyResponse> GetAssetsDeductionCurrencyAsync()
+        {
+            // location
+            string location = $"/v5/assets_deduction_currency";
+
+            // option
+            string option = null;
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(location);
+            return await HttpRequest.GetAsync<GetAssetsDeductionCurrencyResponse>(url);
+        }
+        
+        public async Task<GetMultiAssetsMarginListResponse> GetMultiAssetsMarginListAsync()
+        {
+            // location
+            string location = $"/v5/market/multi_assets_margin";
+
+            // option
+            string option = null;
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(location);
+            return await HttpRequest.GetAsync<GetMultiAssetsMarginListResponse>(url);
+        }
     }
 }

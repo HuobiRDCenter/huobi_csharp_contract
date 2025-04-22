@@ -1475,5 +1475,627 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
             string url = _urlBuilder.Build(GET_METHOD, location);
             return await HttpRequest.GetAsync<SwapPositionSideResponse>(url);
         }
+        
+        public async Task<SwapTradeOrderResponse> SwapTradeOrderAsync(string contractCode,
+            string marginMode, string positionSide, string side, string type, string priceMatch, string clientOrderId,
+            string price, string volume, int reduceOnly, string timeInForce, string tpTriggerPrice, string tpOrderPrice,
+            string tpType, string tpTriggerPriceType, string slTriggerPrice, string slOrderPrice, string slType, 
+            string slTriggerPriceType)
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/v5/trade/order");
+
+            // content
+            string content = "";
+            if (contractCode != null)
+            {
+                content += $",\"pair\": \"{contractCode}\"";
+            }
+            if (marginMode != null)
+            {
+                content += $",\"start_time\": {marginMode}";
+            }
+            if (positionSide != null)
+            {
+                content += $",\"end_time\": {positionSide}";
+            }
+            if (side != null)
+            {
+                content += $",\"direct\": \"{side}\"";
+            }
+            if (type != null)
+            {
+                content += $",\"from_id\": {type}";
+            }
+            if (priceMatch != null)
+            {
+                content += $",\"from_id\": {priceMatch}";
+            }
+            if (clientOrderId != null)
+            {
+                content += $",\"from_id\": {clientOrderId}";
+            }
+            if (price != null)
+            {
+                content += $",\"from_id\": {price}";
+            }
+            if (volume != null)
+            {
+                content += $",\"from_id\": {volume}";
+            }
+            content += $",\"from_id\": {reduceOnly}";
+            if (timeInForce != null)
+            {
+                content += $",\"from_id\": {timeInForce}";
+            }
+            if (tpTriggerPrice != null)
+            {
+                content += $",\"from_id\": {tpTriggerPrice}";
+            }
+            if (tpOrderPrice != null)
+            {
+                content += $",\"from_id\": {tpOrderPrice}";
+            }
+            if (tpType != null)
+            {
+                content += $",\"from_id\": {tpType}";
+            }
+            if (tpTriggerPriceType != null)
+            {
+                content += $",\"from_id\": {tpTriggerPriceType}";
+            }
+            if (slTriggerPrice != null)
+            {
+                content += $",\"from_id\": {slTriggerPrice}";
+            }
+            if (slOrderPrice != null)
+            {
+                content += $",\"from_id\": {slOrderPrice}";
+            }
+            if (slType != null)
+            {
+                content += $",\"from_id\": {slType}";
+            }
+            if (slTriggerPriceType != null)
+            {
+                content += $",\"from_id\": {slTriggerPriceType}";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+
+            return await HttpRequest.PostAsync<SwapTradeOrderResponse>(url, content);
+        }
+        
+        public async Task<SwapTradeBatchOrderResponse> SwapTradeBatchOrderAsync(string contractCode, string marginMode,
+            string positionSide, string side, string type, string priceMatch, string clientOrderId, string price, 
+            string volume, bool reduceOnly, string timeInForce, string tpTriggerPrice, string tpOrderPrice, string tpType,
+            string tpTriggerPriceType, string slTriggerPrice, string slOrderPrice, string slType, string slTriggerPriceType, bool priceProtect, bool triggerProtect)
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/v5/trade/batch_orders");
+
+            // content
+            string content = $",\"contract_code\": {contractCode}, \"margin_mode\": \"{marginMode}\"";
+            if (positionSide != null)
+            {
+                content += $",\"position_side\": \"{positionSide}\"";
+            }
+            if (side != null)
+            {
+                content += $",\"side\": {side}";
+            }
+            if (type != null)
+            {
+                content += $",\"type\": {type}";
+            }
+            if (priceMatch != null)
+            {
+                content += $",\"price_match\": \"{priceMatch}\"";
+            }
+            if (clientOrderId != null)
+            {
+                content += $",\"client_order_id\": {clientOrderId}";
+            }
+            if (price != null)
+            {
+                content += $",\"price\": {price}";
+            }
+            if (volume != null)
+            {
+                content += $",\"volume\": {volume}";
+            }
+            content += $",\"reduce_only\": {reduceOnly}";
+            if (timeInForce != null)
+            {
+                content += $",\"time_in_force\": {timeInForce}";
+            }
+            if (tpTriggerPrice != null)
+            {
+                content += $",\"tp_trigger_price\": {tpTriggerPrice}";
+            }
+            if (tpOrderPrice != null)
+            {
+                content += $",\"tp_order_price\": {tpOrderPrice}";
+            }
+            if (tpType != null)
+            {
+                content += $",\"tp_type\": {tpType}";
+            }
+            if (tpTriggerPriceType != null)
+            {
+                content += $",\"tp_trigger_price_type\": {tpTriggerPriceType}";
+            }
+            if (slTriggerPrice != null)
+            {
+                content += $",\"sl_trigger_price\": {slTriggerPrice}";
+            }
+            if (slOrderPrice != null)
+            {
+                content += $",\"sl_order_price\": {slOrderPrice}";
+            }
+            if (slType != null)
+            {
+                content += $",\"sl_type\": {slType}";
+            }
+            if (slTriggerPriceType != null)
+            {
+                content += $",\"sl_trigger_price_type\": {slTriggerPriceType}";
+            }
+            if (priceProtect != false)
+            {
+                content += $",\"price_protect\": {priceProtect}";
+            }
+            if (triggerProtect != false)
+            {
+                content += $",\"trigger_protect\": {triggerProtect}";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+
+            return await HttpRequest.PostAsync<SwapTradeBatchOrderResponse>(url, content);
+        }
+        
+        public async Task<SwapTradeOrderResponse> SwapTradeOrderAsync(string contractCode, string orderId,
+            string clientOrderId)
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/v5/trade/cancel_order");
+
+            // content
+            string content = $",\"contract_code\": {contractCode}";
+            if (orderId != null)
+            {
+                content += $",\"order_id\": \"{orderId}\"";
+            }
+            if (clientOrderId != null)
+            {
+                content += $",\"client_order_id\": {clientOrderId}";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+
+            return await HttpRequest.PostAsync<SwapTradeOrderResponse>(url, content);
+        }
+        
+        public async Task<SwapTradeOrderResponse> SwapTradeBatchOrdersAsync(string contractCode, string orderId,
+            string clientOrderId, bool priceProtect, bool triggerProtect)
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/v5/trade/batchOrders");
+
+            // content
+            string content = $",\"contract_code\": {contractCode}";
+            if (orderId != null)
+            {
+                content += $",\"order_id\": \"{orderId}\"";
+            }
+            if (clientOrderId != null)
+            {
+                content += $",\"client_order_id\": {clientOrderId}";
+            }
+            if (priceProtect != false)
+            {
+                content += $",\"price_protect\": {priceProtect}";
+            }
+            if (triggerProtect != false)
+            {
+                content += $",\"trigger_protect\": {triggerProtect}";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+
+            return await HttpRequest.PostAsync<SwapTradeOrderResponse>(url, content);
+        }
+        
+        public async Task<SwapTradeOrderResponse> SwapTradeAllOrdersAsync(string contractCode, string side,
+            string positionSide)
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/v5/trade/cancel_all_orders");
+
+            // content
+            string content = $",\"contract_code\": {contractCode}";
+            if (side != null)
+            {
+                content += $",\"side\": \"{side}\"";
+            }
+            if (positionSide != null)
+            {
+                content += $",\"position_side\": {positionSide}";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+
+            return await HttpRequest.PostAsync<SwapTradeOrderResponse>(url, content);
+        }
+        
+        public async Task<SwapTradeOrderResponse> SwapTradePositionAsync(string contractCode, string marginMode,
+            string positionSide, string clientOrderId)
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/v5/trade/position");
+
+            // content
+            string content = $",\"contract_code\": {contractCode}";
+            if (marginMode != null)
+            {
+                content += $",\"margin_mode\": \"{marginMode}\"";
+            }
+            if (positionSide != null)
+            {
+                content += $",\"position_side\": {positionSide}";
+            }
+            if (clientOrderId != null)
+            {
+                content += $",\"client_order_id\": {clientOrderId}";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+
+            return await HttpRequest.PostAsync<SwapTradeOrderResponse>(url, content);
+        }
+        
+        public async Task<SwapTradeOrderResponse> SwapTradePositionAllAsync()
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/v5/trade/position_all");
+
+            // content
+            string content = "";
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+
+            return await HttpRequest.PostAsync<SwapTradeOrderResponse>(url, content);
+        }
+        
+        public async Task<SwapOrderOpensResponse> SwapOrderOpensAsync(string contractCode, string marginMode, 
+            string orderId, string clientOrderId, long from, int limit, string direct)
+        {
+            // location
+            string location = $"/v5/trade/order/opens";
+
+            // option
+            string option = null;
+            if (contractCode != null)
+            {
+                option += $"&contract_code={contractCode}";
+            }
+            if (marginMode != null)
+            {
+                option += $"&margin_mode={marginMode}";
+            }
+            if (orderId != null)
+            {
+                option += $"&order_id={orderId}";
+            }
+            if (clientOrderId != null)
+            {
+                option += $"&client_order_id={clientOrderId}";
+            }
+            option += $"&from={from}";
+            option += $"&limit={limit}";
+            if (direct != null)
+            {
+                option += $"&direct={direct}";
+            }
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<SwapOrderOpensResponse>(url);
+        }
+        
+        public async Task<SwapOrderTradesResponse> SwapOrderTradesAsync(string contractCode, string orderId,
+            string clientOrderId, string startTime, string endTime, long from, int limit, string direct)
+        {
+            // location
+            string location = $"/api/V5/trade/order/details";
+
+            // option
+            string option = null;
+            if (contractCode != null)
+            {
+                option += $"&contract_code={contractCode}";
+            }
+            if (orderId != null)
+            {
+                option += $"&order_id={orderId}";
+            }
+            if (clientOrderId != null)
+            {
+                option += $"&client_order_id={clientOrderId}";
+            }
+            if (startTime != null)
+            {
+                option += $"&start_time={startTime}";
+            }
+            if (endTime != null)
+            {
+                option += $"&end_time={endTime}";
+            }
+            option += $"&from={from}";
+            option += $"&limit={limit}";
+            if (direct != null)
+            {
+                option += $"&direct={direct}";
+            }
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<SwapOrderTradesResponse>(url);
+        }
+        
+        public async Task<SwapOrderHistoryResponse> SwapOrderTradesAsync(string contractCode, string state, string type, string priceMatch, string startTime, string endTime,
+            long from, int limit, string direct, string businessType)
+        {
+            // location
+            string location = $"/api/v5/trade/order/history";
+
+            // option
+            string option = null;
+            if (contractCode != null)
+            {
+                option += $"&contract_code={contractCode}";
+            }
+            if (state != null)
+            {
+                option += $"&state={state}";
+            }
+            if (type != null)
+            {
+                option += $"&type={type}";
+            }
+            if (priceMatch != null)
+            {
+                option += $"&price_match={priceMatch}";
+            }
+            if (startTime != null)
+            {
+                option += $"&start_time={startTime}";
+            }
+            if (endTime != null)
+            {
+                option += $"&end_time={endTime}";
+            }
+            if (businessType != null)
+            {
+                option += $"&business_type={businessType}";
+            }
+            option += $"&from={from}";
+            option += $"&limit={limit}";
+            if (direct != null)
+            {
+                option += $"&direct={direct}";
+            }
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<SwapOrderHistoryResponse>(url);
+        }
+        
+        public async Task<SwapPositionOpensResponse> SwapPositionOpensAsync(string contractCode)
+        {
+            // location
+            string location = $"/v5/trade/position/opens";
+
+            // option
+            string option = null;
+            if (contractCode != null)
+            {
+                option += $"&contract_code={contractCode}";
+            }
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<SwapPositionOpensResponse>(url);
+        }
+        
+        public async Task<SwapPositionHistoryResponse> SwapPositionHistoryAsync(string contractCode,
+            string contractType, string marginMode, string startTime, string endTime, long from, int limit, 
+            string direct)
+        {
+            // location
+            string location = $"/v5/trade/position/history";
+
+            // option
+            string option = null;
+            if (contractCode != null)
+            {
+                option += $"&contract_code={contractCode}";
+            }
+            if (contractType != null)
+            {
+                option += $"&contract_type={contractType}";
+            }
+            if (marginMode != null)
+            {
+                option += $"&margin_mode={marginMode}";
+            }
+            if (startTime != null)
+            {
+                option += $"&start_time={startTime}";
+            }
+            if (endTime != null)
+            {
+                option += $"&end_time={endTime}";
+            }
+            option += $"&from={from}";
+            option += $"&limit={limit}";
+            if (direct != null)
+            {
+                option += $"&direct={direct}";
+            }
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<SwapPositionHistoryResponse>(url);
+        }
+        
+        public async Task<SwapPositionLeverResponse> SwapPositionLeverAsync(string contractCode, 
+            string marginMode)
+        {
+            // location
+            string location = $"/v5/position/lever";
+
+            // option
+            string option = null;
+            if (contractCode != null)
+            {
+                option += $"&contract_code={contractCode}";
+            }
+            if (marginMode != null)
+            {
+                option += $"&margin_mode={marginMode}";
+            }
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<SwapPositionLeverResponse>(url);
+        }
+        
+        public async Task<PositionLeverResponse> PositionLeverAsync(string contractCode, string marginMode,
+            string leverRate)
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/v5/position/lever");
+
+            // content
+            string content = "";
+            if (contractCode != null)
+            {
+                content += $",\"contract_code\": \"{contractCode}\"";
+            }
+            if (marginMode != null)
+            {
+                content += $",\"margin_mode\": \"{marginMode}\"";
+            }
+            if (leverRate != null)
+            {
+                content += $",\"lever_rate\": \"{leverRate}\"";
+            }
+
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+
+            return await HttpRequest.PostAsync<PositionLeverResponse>(url, content);
+        }
+        
+        public async Task<SwapPositionModeResponse> SwapPositionModeAsync()
+        {
+            // location
+            string location = $"/api/v5/position/mode";
+
+            // option
+            string option = null;
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<SwapPositionModeResponse>(url);
+        }
+        
+        public async Task<PositionModeResponse> PositionModeAsync(string positionMode)
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/api/v5/position/mode");
+
+            // content
+            string content = "";
+            if (positionMode != null)
+            {
+                content += $",\"position_mode\": \"{positionMode}\"";
+            }
+
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+
+            return await HttpRequest.PostAsync<PositionModeResponse>(url, content);
+        }
+        
+        public async Task<SwapPositionRiskLimitResponse> SwapPositionRiskLimitAsync(string contractCode, 
+            string marginMode, string positionSide)
+        {
+            // location
+            string location = $"/v5/position/riskLimit";
+
+            // option
+            string option = null;
+            if (contractCode != null)
+            {
+                option += $"&contract_code={contractCode}";
+            }
+            if (marginMode != null)
+            {
+                option += $"&margin_mode={marginMode}";
+            }
+            if (positionSide != null)
+            {
+                option += $"&position_side={positionSide}";
+            }
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<SwapPositionRiskLimitResponse>(url);
+        }
     }
 }
