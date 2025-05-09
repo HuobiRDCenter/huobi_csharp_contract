@@ -19,6 +19,8 @@ namespace Huobi.SDK.Core.WSBase
             
             public string signatureMethod { get { return "HmacSHA256"; } }
 
+            public string signatureMethodEd25519 { get { return "Ed25519"; } }
+
             public string signatureVersion { get { return "2.1"; } }
             
             public string timestamp { get; set; }

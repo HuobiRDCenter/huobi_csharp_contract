@@ -19,9 +19,9 @@ namespace Huobi.SDK.Core.CoinSwap.RESTful
         /// </summary>
         /// <param name="accessKey">Access Key</param>
         /// <param name="secretKey">Secret Key</param>
-        public TransferClient(string accessKey, string secretKey)
+        public TransferClient(string accessKey,string sign, string secretKey)
         {
-            _urlBuilder = new PrivateUrlBuilder(accessKey, secretKey, Host.FUTURES);
+            _urlBuilder = new PrivateUrlBuilder(accessKey, secretKey, Host.FUTURES,sign);
         }
 
         /// <summary>

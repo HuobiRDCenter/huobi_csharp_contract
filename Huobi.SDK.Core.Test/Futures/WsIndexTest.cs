@@ -10,7 +10,7 @@ namespace Huobi.SDK.Core.Test.Futures
     public class WsIndexTest
     {
         static IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-        static WSIndexClient client = new WSIndexClient();
+        static WSIndexClient client = new WSIndexClient(config["Sign"]);
 
         [Theory]
         [InlineData("btc-usd", "1min")]

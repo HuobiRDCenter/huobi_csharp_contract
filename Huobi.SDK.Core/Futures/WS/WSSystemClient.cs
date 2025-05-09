@@ -8,11 +8,12 @@ namespace Huobi.SDK.Core.Futures.WS
     {
         private string host = null;
         private string path = null;
-
-        public WSSystemClient(string host = Host.FUTURES)
+private string sign=null;
+        public WSSystemClient(string sign,string host = Host.FUTURES)
         {
             this.host = host;
             this.path = "/center-notification";
+            this.sign = sign;
         }
 
         #region heartbeat
@@ -29,7 +30,7 @@ namespace Huobi.SDK.Core.Futures.WS
             WSOpData subData = new WSOpData() { op = "sub", topic = ch, cid = cid };
             string sub_str = JsonConvert.SerializeObject(subData);
 
-            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubHeartBeatResponse), true, this.host);
+            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubHeartBeatResponse), this.sign,true, this.host);
             wsop.Connect();
         }
         #endregion

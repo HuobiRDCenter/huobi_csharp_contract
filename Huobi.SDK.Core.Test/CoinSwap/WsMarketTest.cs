@@ -10,7 +10,7 @@ namespace Huobi.SDK.Core.Test.CoinSwap
     public class WsMarketTest
     {
         static IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-        static WSMarketClient client = new WSMarketClient();
+        static WSMarketClient client = new WSMarketClient(config["Sign"]);
 
         [Theory]
         [InlineData("btc-usd", "1min")]

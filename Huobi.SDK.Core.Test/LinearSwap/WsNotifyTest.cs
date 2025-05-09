@@ -11,7 +11,7 @@ namespace Huobi.SDK.Core.Test.LinearSwap
     {
         static IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
 
-        static WSNotifyClient client = new WSNotifyClient(config["AccessKey"], config["SecretKey"]);
+        static WSNotifyClient client = new WSNotifyClient(config["AccessKey"], config["SecretKey"], config["Sign"]);
 
         [Theory]
         [InlineData("BTC-USDT")]

@@ -14,7 +14,7 @@ namespace Huobi.SDK.Core.Test.Futures
         [Fact]
         public void HeartBeatTest()
         {
-            WSSystemClient client = new WSSystemClient();
+            WSSystemClient client = new WSSystemClient(config["Sign"]);
             client.SubHeartBeat(delegate (SubHeartBeatResponse data)
             {
                 Console.WriteLine(JsonConvert.SerializeObject(data));

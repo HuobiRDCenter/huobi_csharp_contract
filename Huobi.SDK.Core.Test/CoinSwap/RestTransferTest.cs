@@ -9,7 +9,7 @@ namespace Huobi.SDK.Core.Test.CoinSwap
     public class RestTransferTest
     {
         static IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-        static TransferClient client = new TransferClient(config["AccessKey"], config["SecretKey"]);
+        static TransferClient client = new TransferClient(config["AccessKey"], config["SecretKey"], config["Sign"]);
 
         [Theory]
         [InlineData("spot", "swap", "trx", 10)]
