@@ -1865,7 +1865,7 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
         }
         
         public async Task<SwapOrderHistoryResponse> SwapOrderTradesAsync(string contractCode, string state, string type, string priceMatch, string startTime, string endTime,
-            long from, int limit, string direct, string businessType)
+            long from, int limit, string direct, string businessType, string marginMode)
         {
             // location
             string location = $"/api/v5/trade/order/history";
@@ -1899,6 +1899,10 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
             if (businessType != null)
             {
                 option += $"&business_type={businessType}";
+            }
+            if (marginMode != null)
+            {
+                option += $"&margin_mode={marginMode}";
             }
             option += $"&from={from}";
             option += $"&limit={limit}";
@@ -2096,6 +2100,38 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
 
             string url = _urlBuilder.Build(GET_METHOD, location);
             return await HttpRequest.GetAsync<SwapPositionRiskLimitResponse>(url);
+        }
+        
+        public async Task<GetTradeOrderResponse> SwapOrderTradesAsync(string contractCode, string marginMode, string orderId, string clientOrderId)
+        {
+            // location
+            string location = $"/api/v5/trade/order";
+
+            // option
+            string option = null;
+            if (contractCode != null)
+            {
+                option += $"&contract_code={contractCode}";
+            }
+            if (orderId != null)
+            {
+                option += $"&order_id={orderId}";
+            }
+            if (clientOrderId != null)
+            {
+                option += $"&client_order_id={clientOrderId}";
+            }
+            if (marginMode != null)
+            {
+                option += $"&margin_mode={marginMode}";
+            }
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<GetTradeOrderResponse>(url);
         }
     }
 }
