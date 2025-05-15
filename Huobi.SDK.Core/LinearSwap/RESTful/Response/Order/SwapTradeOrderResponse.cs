@@ -28,6 +28,9 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful.Response.Order
             /// </summary>
             [JsonProperty("client_order_id")]
             public string ClientOrderId { get; set; }
+            
+            [JsonProperty("cancel_reason")]
+            public string CancelReason { get; set; }
         }
     }
 }
