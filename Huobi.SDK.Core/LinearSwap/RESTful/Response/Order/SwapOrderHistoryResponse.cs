@@ -76,6 +76,9 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful.Response.Order
             /// </summary>
             [JsonProperty("price")]
             public string Price { get; set; }
+            
+            [JsonProperty("cancel_reason")]
+            public string CancelReason { get; set; }
 
             /// <summary>
             /// 委托数量
