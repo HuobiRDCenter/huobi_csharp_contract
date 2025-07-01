@@ -1229,6 +1229,54 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
             }
             return await HttpRequest.PostAsync<SwapMultiAssetsMarginResponse>(url, content);
         }
+        
+        public async Task<InviteeRebateAllRebateDtailResponse> InviteeRebateAllRebateDtailAsync(string direct = null, string fromId = null, long? limit = null)
+        {
+            // location
+            string location = $"/v2/invitee/rebate/all_rebate/detail";
+
+            // option
+            string option = null;
+            if (direct != null)
+            {
+                option += $"&direct={direct}";
+            }
+            if (fromId != null)
+            {
+                option += $"&fromId={fromId}";
+            }
+            if (limit != null)
+            {
+                option += $"&limit={limit}";
+            }
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<InviteeRebateAllRebateDtailResponse>(url);
+        }
+        
+        public async Task<InviteeRebateBatcherRebateDetailResponse> InviteeRebateBatcherRebateDetailAsync(string inviteeUidList = null)
+        {
+            // location
+            string location = $"/v2/invitee/rebate/batcher_rebate/detail";
+
+            // option
+            string option = null;
+            if (inviteeUidList != null)
+            {
+                option += $"&inviteeUidList={inviteeUidList}";
+            }
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<InviteeRebateBatcherRebateDetailResponse>(url);
+        }
     }
 }
 
