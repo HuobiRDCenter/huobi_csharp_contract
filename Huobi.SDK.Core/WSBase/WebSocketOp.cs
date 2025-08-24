@@ -15,6 +15,8 @@ namespace Huobi.SDK.Core.WSBase
         private string subStr = null;
         private string accessKey;
         private string secretKey;
+
+        private string sign;
         Delegate callbackFun = null;
         Type paramType = null;
         bool autoReconnect = false;
@@ -37,7 +39,7 @@ namespace Huobi.SDK.Core.WSBase
         /// <param name="host"></param>
         /// <param name="accessKey"></param>
         /// <param name="secretKey"></param>
-        public WebSocketOp(string path, string subStr, Delegate callbackFun, Type paramType, bool autoReconnect = true,
+        public WebSocketOp(string path, string subStr, Delegate callbackFun, Type paramType,string sign, bool autoReconnect = true,
                               string host = Host.FUTURES, string accessKey = null, string secretKey = null,
                               bool beSpot = false)
         {
@@ -47,7 +49,7 @@ namespace Huobi.SDK.Core.WSBase
             this.callbackFun = callbackFun;
             this.paramType = paramType;
             this.autoReconnect = autoReconnect;
-
+this.sign=sign;
             this.accessKey = accessKey;
             this.secretKey = secretKey;
 
@@ -116,8 +118,8 @@ namespace Huobi.SDK.Core.WSBase
                 {
                     string timestamp = DateTime.UtcNow.ToString("s");
                     WSChAuthData auth = new WSChAuthData() { param = new WSChAuthData.Params() { accessKey = accessKey, timestamp = timestamp } };
-
-                    var sign = new Signer(secretKey);
+if(this.sign=="256"){
+var sign = new Signer(secretKey);
 
                     var req = new GetRequest()
                         .AddParam("accessKey", auth.param.accessKey)
@@ -131,13 +133,30 @@ namespace Huobi.SDK.Core.WSBase
                     string auth_str = JsonConvert.SerializeObject(auth);
                     websocket.Send(auth_str);
                     logger.Log(Log.LogLevel.Info, $"websocket has send data: {auth_str}");
+}else{
+var sign = new Ed25519Signer(secretKey);
+
+                    var req = new GetRequest()
+                        .AddParam("accessKey", auth.param.accessKey)
+                        .AddParam("signatureMethod", auth.param.signatureMethodEd25519)
+                        .AddParam("signatureVersion", auth.param.signatureVersion)
+                        .AddParam("timestamp", auth.param.timestamp);
+
+                    string signature = sign.Sign("GET"+ "\n" + host + "\n" + path + "\n" +req.BuildParams());
+                    auth.param.signature = signature;
+
+                    string auth_str = JsonConvert.SerializeObject(auth);
+                    websocket.Send(auth_str);
+                    logger.Log(Log.LogLevel.Info, $"websocket has send data: {auth_str}");
+}
+                    
                 }
                 else
                 {
                     string timestamp = DateTime.UtcNow.ToString("s");
                     WSOpAuthData auth = new WSOpAuthData() { accessKeyId = accessKey, timestamp = timestamp, cid = "1111" };
-
-                    var sign = new Signer(secretKey);
+if(this.sign=="256"){
+ var sign = new Signer(secretKey);
 
                     var req = new GetRequest()
                         .AddParam("AccessKeyId", auth.accessKeyId)
@@ -151,6 +170,23 @@ namespace Huobi.SDK.Core.WSBase
                     string auth_str = JsonConvert.SerializeObject(auth);
                     websocket.Send(auth_str);
                     logger.Log(Log.LogLevel.Info, $"websocket has send data: {auth_str}");
+}else{
+ var sign = new Ed25519Signer(secretKey);
+
+                    var req = new GetRequest()
+                        .AddParam("AccessKeyId", auth.accessKeyId)
+                        .AddParam("SignatureMethod", auth.signatureMethodEd25519)
+                        .AddParam("SignatureVersion", auth.signatureVersion)
+                        .AddParam("Timestamp", auth.timestamp);
+
+                    string signature = sign.Sign("GET"+ "\n" + host + "\n" + path + "\n" +req.BuildParams());
+                    auth.signature = signature;
+
+                    string auth_str = JsonConvert.SerializeObject(auth);
+                    websocket.Send(auth_str);
+                    logger.Log(Log.LogLevel.Info, $"websocket has send data: {auth_str}");
+}
+                   
                 }
             }
             websocket.Send(subStr);

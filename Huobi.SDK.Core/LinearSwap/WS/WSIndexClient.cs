@@ -8,11 +8,12 @@ namespace Huobi.SDK.Core.LinearSwap.WS
     {
         private string host = null;
         private string path = null;
-
-        public WSIndexClient(string host = Host.FUTURES)
+private string sign=null;
+        public WSIndexClient(string sign,string host = Host.FUTURES)
         {
             this.host = host;
             this.path = "/ws_index";
+            this.sign=sign;
         }
 
         #region index kline
@@ -32,7 +33,7 @@ namespace Huobi.SDK.Core.LinearSwap.WS
             WSSubData subData = new WSSubData() { sub = ch, id = id };
             string sub_str = JsonConvert.SerializeObject(subData);
 
-            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubIndexKLineResponse), true, this.host);
+            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubIndexKLineResponse),this.sign, true, this.host);
             wsop.Connect();
         }
 
@@ -51,7 +52,7 @@ namespace Huobi.SDK.Core.LinearSwap.WS
             WSReqData reqData = new WSReqData() { req = ch, id = id, from = from, to = to };
             string sub_str = JsonConvert.SerializeObject(reqData);
 
-            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(ReqIndexKLineResponse), true, this.host);
+            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(ReqIndexKLineResponse),this.sign, true, this.host);
             wsop.Connect();
         }
         #endregion
@@ -73,7 +74,7 @@ namespace Huobi.SDK.Core.LinearSwap.WS
             WSSubData subData = new WSSubData() { sub = ch, id = id };
             string sub_str = JsonConvert.SerializeObject(subData);
 
-            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubIndexKLineResponse), true, this.host);
+            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubIndexKLineResponse), this.sign,true, this.host);
             wsop.Connect();
         }
 
@@ -92,7 +93,7 @@ namespace Huobi.SDK.Core.LinearSwap.WS
             WSReqData reqData = new WSReqData() { req = ch, id = id, from = from, to = to };
             string sub_str = JsonConvert.SerializeObject(reqData);
 
-            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(ReqIndexKLineResponse), true, this.host);
+            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(ReqIndexKLineResponse), this.sign,true, this.host);
             wsop.Connect();
         }
         #endregion
@@ -114,7 +115,7 @@ namespace Huobi.SDK.Core.LinearSwap.WS
             WSSubData subData = new WSSubData() { sub = ch, id = id };
             string sub_str = JsonConvert.SerializeObject(subData);
 
-            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubIndexKLineResponse), true, this.host);
+            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubIndexKLineResponse), this.sign,true, this.host);
             wsop.Connect();
         }
 
@@ -133,7 +134,7 @@ namespace Huobi.SDK.Core.LinearSwap.WS
             WSReqData reqData = new WSReqData() { req = ch, id = id, from = from, to = to };
             string sub_str = JsonConvert.SerializeObject(reqData);
 
-            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(ReqIndexKLineResponse), true, this.host);
+            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(ReqIndexKLineResponse), this.sign,true, this.host);
             wsop.Connect();
         }
         #endregion
@@ -156,7 +157,7 @@ namespace Huobi.SDK.Core.LinearSwap.WS
             WSSubData subData = new WSSubData() { sub = ch, id = id };
             string sub_str = JsonConvert.SerializeObject(subData);
 
-            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubBasiesResponse), true, this.host);
+            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubBasiesResponse), this.sign,true, this.host);
             wsop.Connect();
         }
 
@@ -177,7 +178,7 @@ namespace Huobi.SDK.Core.LinearSwap.WS
             WSReqData reqData = new WSReqData() { req = ch, id = id, from = from, to = to };
             string sub_str = JsonConvert.SerializeObject(reqData);
 
-            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(ReqBasisResponse), true, this.host);
+            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(ReqBasisResponse), this.sign,true, this.host);
             wsop.Connect();
         }
         #endregion
@@ -199,7 +200,7 @@ namespace Huobi.SDK.Core.LinearSwap.WS
             WSSubData subData = new WSSubData() { sub = ch, id = id };
             string sub_str = JsonConvert.SerializeObject(subData);
 
-            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubIndexKLineResponse), true, this.host);
+            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubIndexKLineResponse),this.sign, true, this.host);
             wsop.Connect();
         }
 
@@ -218,7 +219,7 @@ namespace Huobi.SDK.Core.LinearSwap.WS
             WSReqData reqData = new WSReqData() { req = ch, id = id, from = from, to = to };
             string sub_str = JsonConvert.SerializeObject(reqData);
 
-            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(ReqIndexKLineResponse), true, this.host);
+            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(ReqIndexKLineResponse), this.sign,true, this.host);
             wsop.Connect();
         }
         #endregion

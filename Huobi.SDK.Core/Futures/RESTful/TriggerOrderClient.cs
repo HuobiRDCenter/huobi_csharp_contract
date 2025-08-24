@@ -20,9 +20,9 @@ namespace Huobi.SDK.Core.Futures.RESTful
         /// <param name="accessKey">Access Key</param>
         /// <param name="secretKey">Secret Key</param>
         /// <param name="host">the host that the client connects to</param>
-        public TriggerOrderClient(string accessKey, string secretKey, string host = Host.FUTURES)
+        public TriggerOrderClient(string accessKey, string secretKey,string sign, string host = Host.FUTURES)
         {
-            _urlBuilder = new PrivateUrlBuilder(accessKey, secretKey, host);
+            _urlBuilder = new PrivateUrlBuilder(accessKey, secretKey, host,sign);
         }
 
         /// <summary>

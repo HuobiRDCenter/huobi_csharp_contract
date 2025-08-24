@@ -10,7 +10,7 @@ namespace Huobi.SDK.Core.Test.LinearSwap
     public class RestTriggerOrderTest
     {
         static IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-        static TriggerOrderClient client = new TriggerOrderClient(config["AccessKey"], config["SecretKey"]);
+        static TriggerOrderClient client = new TriggerOrderClient(config["AccessKey"], config["SecretKey"], config["Sign"]);
 
         [Theory]
         [InlineData("le", 43000, "buy", "both", 1, 43000, "limit", 5, "BTC-USDT", 1)]

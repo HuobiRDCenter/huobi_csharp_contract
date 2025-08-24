@@ -11,11 +11,13 @@ namespace Huobi.SDK.Core.Futures.WS
         private string path = null;
         private string accessKey = null;
         private string secretKey = null;
+        private string sign=null;
         private Dictionary<string, WebSocketOp> allWsop = new Dictionary<string, WebSocketOp>();
 
-        public WSNotifyClient(string accessKey = null, string secretKey = null, string host = Host.FUTURES)
+        public WSNotifyClient(string accessKey = null, string secretKey = null, string sign=null,string host = Host.FUTURES)
         {
             this.host = host;
+            this.sign = sign;
             this.path = "/notification";
             this.accessKey = accessKey;
             this.secretKey = secretKey;
@@ -45,7 +47,7 @@ namespace Huobi.SDK.Core.Futures.WS
             WSOpData opData = new WSOpData { op = "sub", topic = ch };
             string sub_str = JsonConvert.SerializeObject(opData);
 
-            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubOrdersResponse), true, this.host,
+            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubOrdersResponse), this.sign,true, this.host,
                                             this.accessKey, this.secretKey);
             wsop.Connect();
             if (!allWsop.ContainsKey(ch))
@@ -89,7 +91,7 @@ namespace Huobi.SDK.Core.Futures.WS
             WSOpData opData = new WSOpData { op = "sub", cid = cid, topic = ch };
             string sub_str = JsonConvert.SerializeObject(opData);
 
-            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubAccountsResponse), true, this.host,
+            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubAccountsResponse),this.sign, true, this.host,
                                             this.accessKey, this.secretKey);
             wsop.Connect();
             if (!allWsop.ContainsKey(ch))
@@ -133,7 +135,7 @@ namespace Huobi.SDK.Core.Futures.WS
             WSOpData opData = new WSOpData { op = "sub", topic = ch };
             string sub_str = JsonConvert.SerializeObject(opData);
 
-            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubPositionsResponse), true, this.host,
+            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubPositionsResponse), this.sign,true, this.host,
                                             this.accessKey, this.secretKey);
             wsop.Connect();
             if (!allWsop.ContainsKey(ch))
@@ -178,7 +180,7 @@ namespace Huobi.SDK.Core.Futures.WS
             WSOpData opData = new WSOpData { op = "sub", cid = cid, topic = ch };
             string sub_str = JsonConvert.SerializeObject(opData);
 
-            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubOrdersResponse), true, this.host,
+            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubOrdersResponse),this.sign, true, this.host,
                                             this.accessKey, this.secretKey);
             wsop.Connect();
             if (!allWsop.ContainsKey(ch))
@@ -225,7 +227,7 @@ namespace Huobi.SDK.Core.Futures.WS
             WSOpData opData = new WSOpData { op = "sub", cid = cid, topic = ch, businessType = businessType };
             string sub_str = JsonConvert.SerializeObject(opData);
 
-            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubLiquidationOrdersResponse), true, this.host,
+            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubLiquidationOrdersResponse),this.sign, true, this.host,
                                             this.accessKey, this.secretKey);
             wsop.Connect();
             if (!allWsop.ContainsKey(ch))
@@ -271,7 +273,7 @@ namespace Huobi.SDK.Core.Futures.WS
             WSOpData opData = new WSOpData { op = "sub", cid = cid, topic = ch };
             string sub_str = JsonConvert.SerializeObject(opData);
 
-            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubFundingRateResponse), true, this.host,
+            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubFundingRateResponse), this.sign,true, this.host,
                                             this.accessKey, this.secretKey);
             wsop.Connect();
             if (!allWsop.ContainsKey(ch))
@@ -317,7 +319,7 @@ namespace Huobi.SDK.Core.Futures.WS
             WSOpData opData = new WSOpData { op = "sub", cid = cid, topic = ch, businessType = businessType };
             string sub_str = JsonConvert.SerializeObject(opData);
 
-            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubContractInfoResponse), true, this.host,
+            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubContractInfoResponse), this.sign,true, this.host,
                                             this.accessKey, this.secretKey);
             wsop.Connect();
             if (!allWsop.ContainsKey(ch))
@@ -362,7 +364,7 @@ namespace Huobi.SDK.Core.Futures.WS
             WSOpData opData = new WSOpData { op = "sub", cid = cid, topic = ch };
             string sub_str = JsonConvert.SerializeObject(opData);
 
-            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubTriggerOrderResponse), true, this.host,
+            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubTriggerOrderResponse),this.sign, true, this.host,
                                             this.accessKey, this.secretKey);
             wsop.Connect();
             if (!allWsop.ContainsKey(ch))
@@ -409,7 +411,7 @@ namespace Huobi.SDK.Core.Futures.WS
             WSOpData opData = new WSOpData { op = "sub", cid = cid, topic = ch, businessType = businessType, tradePartition = tradePartition };
             string sub_str = JsonConvert.SerializeObject(opData);
 
-            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubContractElementsResponse), true, this.host,
+            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubContractElementsResponse),this.sign, true, this.host,
                                             this.accessKey, this.secretKey);
             wsop.Connect();
             if (!allWsop.ContainsKey(ch))

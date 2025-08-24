@@ -10,7 +10,7 @@ namespace Huobi.SDK.Core.Test.Futures
     public class RestOrderTest
     {
         static IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-        static OrderClient client = new OrderClient(config["AccessKey"], config["SecretKey"], Host.FUTURES);
+        static OrderClient client = new OrderClient(config["AccessKey"], config["SecretKey"], config["Sign"], Host.FUTURES);
 
         [Theory]
         [InlineData("bch210319", null, 500, 1, "buy", "open", 10, "limit")]

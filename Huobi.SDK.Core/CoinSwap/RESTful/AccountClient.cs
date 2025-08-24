@@ -22,9 +22,9 @@ namespace Huobi.SDK.Core.CoinSwap.RESTful
         /// <param name="accessKey">Access Key</param>
         /// <param name="secretKey">Secret Key</param>
         /// <param name="host">the host that the client connects to</param>
-        public AccountClient(string accessKey, string secretKey, string host = FUTURES_HOST)
+        public AccountClient(string accessKey, string secretKey,string sign, string host = FUTURES_HOST)
         {
-            _urlBuilder = new PrivateUrlBuilder(accessKey, secretKey, host);
+            _urlBuilder = new PrivateUrlBuilder(accessKey, secretKey, host,sign);
         }
 
         /// <summary>

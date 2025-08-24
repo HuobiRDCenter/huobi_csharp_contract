@@ -11,7 +11,7 @@ namespace Huobi.SDK.Core.Test.LinearSwap
     public class RestOrderTest
     {
         static IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-        static OrderClient client = new OrderClient(config["AccessKey"], config["SecretKey"]);
+        static OrderClient client = new OrderClient(config["AccessKey"], config["SecretKey"], config["Sign"]);
 
         [Theory]
         [InlineData("btc-usdt", "single_side")]

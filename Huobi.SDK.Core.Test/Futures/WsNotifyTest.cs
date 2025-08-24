@@ -16,7 +16,7 @@ namespace Huobi.SDK.Core.Test.Futures
         [InlineData("*")]
         public void OrdersTest(string symbol)
         {
-            WSNotifyClient client = new WSNotifyClient(config["AccessKey"], config["SecretKey"]);
+            WSNotifyClient client = new WSNotifyClient(config["AccessKey"], config["SecretKey"], config["Sign"]);
             client.SubOrders(symbol, delegate (SubOrdersResponse data)
             {
                 Console.WriteLine(JsonConvert.SerializeObject(data));
