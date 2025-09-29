@@ -1865,7 +1865,7 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
         }
         
         public async Task<SwapOrderHistoryResponse> SwapOrderTradesAsync(string contractCode, string state, string type, string priceMatch, string startTime, string endTime,
-            long from, int limit, string direct, string businessType, string marginMode)
+            long from, int limit, string direct, string timeInForce, string marginMode)
         {
             // location
             string location = $"/api/v5/trade/order/history";
@@ -1896,9 +1896,9 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
             {
                 option += $"&end_time={endTime}";
             }
-            if (businessType != null)
+            if (timeInForce != null)
             {
-                option += $"&business_type={businessType}";
+                option += $"&time_in_force={timeInForce}";
             }
             if (marginMode != null)
             {
