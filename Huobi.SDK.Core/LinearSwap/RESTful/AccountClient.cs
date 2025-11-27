@@ -1277,6 +1277,109 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
             string url = _urlBuilder.Build(GET_METHOD, location);
             return await HttpRequest.GetAsync<InviteeRebateBatcherRebateDetailResponse>(url);
         }
+        
+        public async Task<FeeDeductionCurrencyResponse> FeeDeductionCurrency(int feeOption, string deductionCurrency)
+        {
+            // ulr
+            string url = _urlBuilder.Build(POST_METHOD, "/v5/account/fee_deduction_currency");
+
+            // content
+            string content = null;
+
+            content += $",\"fee_option\": \"{feeOption}\"";
+            content += $",\"deduction_currency\": \"{deductionCurrency}\"";
+            
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+            return await HttpRequest.PostAsync<FeeDeductionCurrencyResponse>(url, content);
+        }
+
+        public async Task<QueryEarnProjectListResponse> QueryEarnProjectList(string currency, int pageNum, int pageSize)
+        {
+            // location
+            string location = $"/v1/earn/project/queryEarnProjectList";
+
+            // option
+            string option = null;
+            if (currency != null)
+            {
+                option += $"&currency={currency}";
+            }
+
+            option += $"&pageNum={pageNum}";
+            option += $"&pageSize={pageSize}";
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<QueryEarnProjectListResponse>(url);
+        }
+        
+        public async Task<EarnOrderDemandAddResponse> EarnOrderDemandAdd(long id, long amount, string requestId)
+        {
+            // ulr
+            string url = _urlBuilder.Build(POST_METHOD, "/v1/earn/order/demand/add");
+
+            // content
+            string content = null;
+
+            content += $",\"requestId\": \"{requestId}\"";
+            content += $",\"id\": \"{id}\"";
+            content += $",\"amount\": \"{amount}\"";
+            
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+            return await HttpRequest.PostAsync<EarnOrderDemandAddResponse>(url, content);
+        }
+        
+        public async Task<EarnOrderDemandRedeemOrderResponse> EarnOrderDemandRedeemOrder(long orderId, long amount, string requestId)
+        {
+            // ulr
+            string url = _urlBuilder.Build(POST_METHOD, "/v1/earn/order/demand/redeem-order");
+
+            // content
+            string content = null;
+
+            content += $",\"requestId\": \"{requestId}\"";
+            content += $",\"orderId\": \"{orderId}\"";
+            content += $",\"amount\": \"{amount}\"";
+            
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+            return await HttpRequest.PostAsync<EarnOrderDemandRedeemOrderResponse>(url, content);
+        }
+        
+        public async Task<EarnOrderUserAssetsListResponse> EarnOrderUserAssetsList(int projectType, string currency, int pageNum, int pageSize)
+        {
+            // location
+            string location = $"/v1/earn/order/user/assets/list";
+
+            // option
+            string option = null;
+            if (currency != null)
+            {
+                option += $"&currency={currency}";
+            }
+
+            option += $"&pageNum={pageNum}";
+            option += $"&pageSize={pageSize}";
+            option += $"&projectType={projectType}";
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<EarnOrderUserAssetsListResponse>(url);
+        }
     }
 }
 
