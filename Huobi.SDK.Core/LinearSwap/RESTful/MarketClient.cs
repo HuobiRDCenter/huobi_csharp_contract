@@ -1095,7 +1095,7 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
             string contractType, string marginMode, string tier)
         {
             // location
-            string location = $"/v5/market/risk_limit";
+            string location = $"/v5/market/risk/limit";
 
             // option
             string option = null;
@@ -1127,7 +1127,7 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
         public async Task<GetAssetsDeductionCurrencyResponse> GetAssetsDeductionCurrencyAsync()
         {
             // location
-            string location = $"/v5/assets_deduction_currency";
+            string location = $"/v5/market/assets_deduction_currency";
 
             // option
             string option = null;
@@ -1154,6 +1154,344 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
 
             string url = _urlBuilder.Build(location);
             return await HttpRequest.GetAsync<GetMultiAssetsMarginListResponse>(url);
+        }
+
+        /// <summary>
+        /// 查询当前资金费率
+        /// </summary>
+        /// <param name="contractCode">合约代码</param>
+        /// <returns></returns>
+        public async Task<MarketFundingRateResponse> GetFundingRateAsync(string contractCode)
+        {
+            // location
+            string location = "/v5/market/funding_rate";
+
+            // option
+            string option = null;
+            if (!string.IsNullOrEmpty(contractCode))
+            {
+                option += $"&contract_code={contractCode}";
+            }
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<MarketFundingRateResponse>(url);
+        }
+
+        /// <summary>
+        /// 查询历史资金费率
+        /// </summary>
+        /// <param name="contractCode">合约代码</param>
+        /// <param name="startTime">开始时间</param>
+        /// <param name="endTime">结束时间</param>
+        /// <param name="from">起始ID</param>
+        /// <param name="limit">数量限制</param>
+        /// <param name="direct">查询方向</param>
+        /// <returns></returns>
+        public async Task<MarketFundingRateHistoryResponse> GetFundingRateHistoryAsync(
+            string contractCode,
+            long? startTime = null,
+            long? endTime = null,
+            long? from = null,
+            int? limit = null,
+            string direct = null)
+        {
+            // location
+            string location = "/v5/market/funding_rate_history";
+
+            // option
+            string option = null;
+            if (!string.IsNullOrEmpty(contractCode))
+            {
+                option += $"&contract_code={contractCode}";
+            }
+            if (startTime != null)
+            {
+                option += $"&start_time={startTime}";
+            }
+            if (endTime != null)
+            {
+                option += $"&end_time={endTime}";
+            }
+            if (from != null)
+            {
+                option += $"&from={from}";
+            }
+            if (limit != null)
+            {
+                option += $"&limit={limit}";
+            }
+            if (!string.IsNullOrEmpty(direct))
+            {
+                option += $"&direct={direct}";
+            }
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<MarketFundingRateHistoryResponse>(url);
+        }
+
+        /// <summary>
+        /// 查询当前平台合约持仓总量
+        /// </summary>
+        /// <param name="contractCode">合约代码</param>
+        /// <returns></returns>
+        public async Task<MarketOpenInterestResponse> GetOpenInterestAsync(string contractCode)
+        {
+            // location
+            string location = "/v5/market/open_interest";
+
+            // option
+            string option = null;
+            if (!string.IsNullOrEmpty(contractCode))
+            {
+                option += $"&contract_code={contractCode}";
+            }
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<MarketOpenInterestResponse>(url);
+        }
+
+        /// <summary>
+        /// 查询限价最高买价与最低卖价
+        /// </summary>
+        /// <param name="contractCode">合约代码</param>
+        /// <returns></returns>
+        public async Task<MarketPriceLimitResponse> GetPriceLimitAsync(string contractCode)
+        {
+            // location
+            string location = "/v5/market/price_limit";
+
+            // option
+            string option = null;
+            if (!string.IsNullOrEmpty(contractCode))
+            {
+                option += $"&contract_code={contractCode}";
+            }
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<MarketPriceLimitResponse>(url);
+        }
+
+        /// <summary>
+        /// 查询强平订单
+        /// </summary>
+        /// <param name="contractCode">合约代码</param>
+        /// <param name="pair">交易对</param>
+        /// <param name="startTime">开始时间</param>
+        /// <param name="endTime">结束时间</param>
+        /// <param name="direct">查询方向</param>
+        /// <param name="from">起始ID</param>
+        /// <param name="limit">数量限制</param>
+        /// <returns></returns>
+        public async Task<MarketLiquidationOrdersResponse> GetLiquidationOrdersAsync(
+            string contractCode = null,
+            string pair = null,
+            long? startTime = null,
+            long? endTime = null,
+            string direct = null,
+            long? from = null,
+            int? limit = null)
+        {
+            // location
+            string location = "/v5/market/liquidation_orders";
+
+            // option
+            string option = null;
+            if (!string.IsNullOrEmpty(contractCode))
+            {
+                option += $"&contract_code={contractCode}";
+            }
+            if (!string.IsNullOrEmpty(pair))
+            {
+                option += $"&pair={pair}";
+            }
+            if (startTime != null)
+            {
+                option += $"&start_time={startTime}";
+            }
+            if (endTime != null)
+            {
+                option += $"&end_time={endTime}";
+            }
+            if (!string.IsNullOrEmpty(direct))
+            {
+                option += $"&direct={direct}";
+            }
+            if (from != null)
+            {
+                option += $"&from={from}";
+            }
+            if (limit != null)
+            {
+                option += $"&limit={limit}";
+            }
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<MarketLiquidationOrdersResponse>(url);
+        }
+
+        /// <summary>
+        /// 查询平台结算历史
+        /// </summary>
+        /// <param name="contractCode">合约代码</param>
+        /// <param name="startTime">开始时间</param>
+        /// <param name="endTime">结束时间</param>
+        /// <param name="direct">查询方向</param>
+        /// <param name="from">起始ID</param>
+        /// <param name="limit">数量限制</param>
+        /// <returns></returns>
+        public async Task<MarketSettlementHistoryResponse> GetSettlementHistoryAsync(
+            string contractCode = null,
+            long? startTime = null,
+            long? endTime = null,
+            string direct = null,
+            string from = null,
+            int? limit = null)
+        {
+            // location
+            string location = "/v5/market/settlement_history";
+
+            // option
+            string option = null;
+            if (!string.IsNullOrEmpty(contractCode))
+            {
+                option += $"&contract_code={contractCode}";
+            }
+            if (startTime != null)
+            {
+                option += $"&start_time={startTime}";
+            }
+            if (endTime != null)
+            {
+                option += $"&end_time={endTime}";
+            }
+            if (!string.IsNullOrEmpty(direct))
+            {
+                option += $"&direct={direct}";
+            }
+            if (!string.IsNullOrEmpty(from))
+            {
+                option += $"&from={from}";
+            }
+            if (limit != null)
+            {
+                option += $"&limit={limit}";
+            }
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<MarketSettlementHistoryResponse>(url);
+        }
+
+        /// <summary>
+        /// 查询精英账户多空持仓对比-账户数
+        /// </summary>
+        /// <param name="contractCode">合约代码</param>
+        /// <param name="period">周期</param>
+        /// <returns></returns>
+        public async Task<MarketEliteAccountRatioResponse> GetEliteAccountRatioAsync(
+            string contractCode,
+            string period)
+        {
+            // location
+            string location = "/v5/market/elite_account_ratio";
+
+            // option
+            string option = null;
+            if (!string.IsNullOrEmpty(contractCode))
+            {
+                option += $"&contract_code={contractCode}";
+            }
+            if (!string.IsNullOrEmpty(period))
+            {
+                option += $"&period={period}";
+            }
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<MarketEliteAccountRatioResponse>(url);
+        }
+
+        /// <summary>
+        /// 查询精英账户多空持仓对比-持仓数
+        /// </summary>
+        /// <param name="contractCode">合约代码</param>
+        /// <param name="period">周期</param>
+        /// <returns></returns>
+        public async Task<MarketElitePositionRatioResponse> GetElitePositionRatioAsync(
+            string contractCode,
+            string period)
+        {
+            // location
+            string location = "/v5/market/elite_position_ratio";
+
+            // option
+            string option = null;
+            if (!string.IsNullOrEmpty(contractCode))
+            {
+                option += $"&contract_code={contractCode}";
+            }
+            if (!string.IsNullOrEmpty(period))
+            {
+                option += $"&period={period}";
+            }
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<MarketElitePositionRatioResponse>(url);
+        }
+
+        /// <summary>
+        /// 查询预估结算价
+        /// </summary>
+        /// <param name="contractCode">合约代码</param>
+        /// <returns></returns>
+        public async Task<MarketEstimatedSettlementPriceResponse> GetEstimatedSettlementPriceAsync(string contractCode)
+        {
+            // location
+            string location = "/v5/market/estimated_settlement_price";
+
+            // option
+            string option = null;
+            if (!string.IsNullOrEmpty(contractCode))
+            {
+                option += $"&contract_code={contractCode}";
+            }
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<MarketEstimatedSettlementPriceResponse>(url);
         }
     }
 }
