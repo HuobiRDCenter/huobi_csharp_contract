@@ -441,5 +441,134 @@ namespace Huobi.SDK.Core.Futures.WS
         }
         #endregion
 
+        #region match_orders
+        public delegate void _OnSubMatchOrdersResponse(SubMatchOrdersResponse data);
+
+        /// <summary>
+        /// 订阅撮合后的订单数据
+        /// </summary>
+        /// <param name="contractCode">合约代码，支持*（全部）、BTC-USDT（永续）、BTC-USDT-240909（交割）</param>
+        /// <param name="callbackFun"></param>
+        /// <param name="cid"></param>
+        public void SubMatchOrders(string contractCode, _OnSubMatchOrdersResponse callbackFun, string cid = WebSocketOp.DEFAULT_ID)
+        {
+            string ch = $"match_orders.{contractCode}";
+            WSOpData opData = new WSOpData { op = "sub", cid = cid, topic = ch };
+            string sub_str = JsonConvert.SerializeObject(opData);
+
+            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubMatchOrdersResponse), true, this.host,
+                                            this.accessKey, this.secretKey);
+            wsop.Connect();
+            if (!allWsop.ContainsKey(ch))
+            {
+                allWsop.Add(ch, wsop);
+            }
+        }
+
+        /// <summary>
+        /// 取消订阅撮合后的订单数据
+        /// </summary>
+        /// <param name="contractCode"></param>
+        /// <param name="cid"></param>
+        public void UnsubMatchOrders(string contractCode, string cid = WebSocketOp.DEFAULT_ID)
+        {
+            string ch = $"match_orders.{contractCode}";
+            WSOpData opData = new WSOpData { op = "unsub", cid = cid, topic = ch };
+            string unsub_str = JsonConvert.SerializeObject(opData);
+
+            if (!allWsop.ContainsKey(ch))
+            {
+                return;
+            }
+            allWsop[ch].SendMsg(unsub_str);
+            allWsop.Remove(ch);
+        }
+        #endregion
+
+        #region algo_orders
+        public delegate void _OnSubAlgoOrdersResponse(SubAlgoOrdersResponse data);
+
+        /// <summary>
+        /// 订阅策略委托订单数据
+        /// </summary>
+        /// <param name="contractCode">合约代码，支持*（全部）、BTC-USDT（永续）、BTC-USDT-240909（交割）</param>
+        /// <param name="callbackFun"></param>
+        /// <param name="cid"></param>
+        public void SubAlgoOrders(string contractCode, _OnSubAlgoOrdersResponse callbackFun, string cid = WebSocketOp.DEFAULT_ID)
+        {
+            string ch = $"algo_orders.{contractCode}";
+            WSOpData opData = new WSOpData { op = "sub", cid = cid, topic = ch };
+            string sub_str = JsonConvert.SerializeObject(opData);
+
+            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubAlgoOrdersResponse), true, this.host,
+                                            this.accessKey, this.secretKey);
+            wsop.Connect();
+            if (!allWsop.ContainsKey(ch))
+            {
+                allWsop.Add(ch, wsop);
+            }
+        }
+
+        /// <summary>
+        /// 取消订阅策略委托订单数据
+        /// </summary>
+        /// <param name="contractCode"></param>
+        /// <param name="cid"></param>
+        public void UnsubAlgoOrders(string contractCode, string cid = WebSocketOp.DEFAULT_ID)
+        {
+            string ch = $"algo_orders.{contractCode}";
+            WSOpData opData = new WSOpData { op = "unsub", cid = cid, topic = ch };
+            string unsub_str = JsonConvert.SerializeObject(opData);
+
+            if (!allWsop.ContainsKey(ch))
+            {
+                return;
+            }
+            allWsop[ch].SendMsg(unsub_str);
+            allWsop.Remove(ch);
+        }
+        #endregion
+
+        #region account
+        public delegate void _OnSubAccountResponse(SubAccountResponse data);
+
+        /// <summary>
+        /// 订阅账户数据
+        /// </summary>
+        /// <param name="callbackFun"></param>
+        /// <param name="cid"></param>
+        public void SubAccount(_OnSubAccountResponse callbackFun, string cid = WebSocketOp.DEFAULT_ID)
+        {
+            string ch = "account";
+            WSOpData opData = new WSOpData { op = "sub", cid = cid, topic = ch };
+            string sub_str = JsonConvert.SerializeObject(opData);
+
+            WebSocketOp wsop = new WebSocketOp(this.path, sub_str, callbackFun, typeof(SubAccountResponse), true, this.host,
+                                            this.accessKey, this.secretKey);
+            wsop.Connect();
+            if (!allWsop.ContainsKey(ch))
+            {
+                allWsop.Add(ch, wsop);
+            }
+        }
+
+        /// <summary>
+        /// 取消订阅账户数据
+        /// </summary>
+        /// <param name="cid"></param>
+        public void UnsubAccount(string cid = WebSocketOp.DEFAULT_ID)
+        {
+            string ch = "account";
+            WSOpData opData = new WSOpData { op = "unsub", cid = cid, topic = ch };
+            string unsub_str = JsonConvert.SerializeObject(opData);
+
+            if (!allWsop.ContainsKey(ch))
+            {
+                return;
+            }
+            allWsop[ch].SendMsg(unsub_str);
+            allWsop.Remove(ch);
+        }
+        #endregion
     }
 }

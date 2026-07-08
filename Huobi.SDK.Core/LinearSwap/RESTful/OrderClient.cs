@@ -2077,7 +2077,7 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
             string marginMode, string positionSide)
         {
             // location
-            string location = $"/v5/position/riskLimit";
+            string location = $"/v5/position/risk/limit";
 
             // option
             string option = null;
@@ -2100,6 +2100,66 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
 
             string url = _urlBuilder.Build(GET_METHOD, location);
             return await HttpRequest.GetAsync<SwapPositionRiskLimitResponse>(url);
+        }
+
+        public async Task<PositionRiskLimitTierResponse> PositionRiskLimitTierAsync(string contractCode = null, 
+            string marginMode = null)
+        {
+            // location
+            string location = $"/v5/position/risk/limit_tier";
+
+            // option
+            string option = null;
+            if (contractCode != null)
+            {
+                option += $"&contract_code={contractCode}";
+            }
+            if (marginMode != null)
+            {
+                option += $"&margin_mode={marginMode}";
+            }
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<PositionRiskLimitTierResponse>(url);
+        }
+
+        public async Task<PositionMarginResponse> PositionMarginAsync(
+            string contractCode,
+            string positionSide,
+            string amount,
+            string type)
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/v5/position/margin");
+
+            // content
+            string content = null;
+            if (!string.IsNullOrEmpty(contractCode))
+            {
+                content += $",\"contract_code\": \"{contractCode}\"";
+            }
+            if (!string.IsNullOrEmpty(positionSide))
+            {
+                content += $",\"position_side\": \"{positionSide}\"";
+            }
+            if (!string.IsNullOrEmpty(amount))
+            {
+                content += $",\"amount\": \"{amount}\"";
+            }
+            if (!string.IsNullOrEmpty(type))
+            {
+                content += $",\"type\": \"{type}\"";
+            }
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+
+            return await HttpRequest.PostAsync<PositionMarginResponse>(url, content);
         }
         
         public async Task<GetTradeOrderResponse> SwapOrderTradesAsync(string contractCode, string marginMode, string orderId, string clientOrderId)
@@ -2133,5 +2193,29 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
             string url = _urlBuilder.Build(GET_METHOD, location);
             return await HttpRequest.GetAsync<GetTradeOrderResponse>(url);
         }
+    }
+
+    public async Task<TradeCancelAfterResponse> TradeCancelAfterAsync(string onOff, string timeOut = null)
+    {
+        // location
+        string location = "/v5/trade/cancel-after";
+
+        // option
+        string option = null;
+        if (!string.IsNullOrEmpty(onOff))
+        {
+            option += $"&on_off={onOff}";
+        }
+        if (!string.IsNullOrEmpty(timeOut))
+        {
+            option += $"&time_out={timeOut}";
+        }
+        if (option != null)
+        {
+            location += $"?{option.Substring(1)}";
+        }
+
+        string url = _urlBuilder.Build(GET_METHOD, location);
+        return await HttpRequest.GetAsync<TradeCancelAfterResponse>(url);
     }
 }
