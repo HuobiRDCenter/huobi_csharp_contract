@@ -1229,7 +1229,42 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
             }
             return await HttpRequest.PostAsync<SwapMultiAssetsMarginResponse>(url, content);
         }
-        
+
+        public async Task<AssetModeResponse> SetAssetModeAsync(int assetMode)
+        {
+            // ulr
+            string url = _urlBuilder.Build(POST_METHOD, "/v5/account/asset_mode");
+
+            // content
+            string content = null;
+
+            content += $",\"asset_mode\": {assetMode}";
+
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+            return await HttpRequest.PostAsync<AssetModeResponse>(url, content);
+        }
+
+        public async Task<AssetModeResponse> GetAssetModeAsync()
+        {
+            // location
+            string location = "/v5/account/asset_mode";
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<AssetModeResponse>(url);
+        }
+
+        public async Task<AccountFeeDeductionCurrencyResponse> GetAccountFeeDeductionCurrencyAsync()
+        {
+            // location
+            string location = "/v5/account/fee_deduction_currency";
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<AccountFeeDeductionCurrencyResponse>(url);
+        }
+
         public async Task<InviteeRebateAllRebateDtailResponse> InviteeRebateAllRebateDtailAsync(string direct = null, string fromId = null, long? limit = null)
         {
             // location

@@ -1127,7 +1127,7 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
         public async Task<GetAssetsDeductionCurrencyResponse> GetAssetsDeductionCurrencyAsync()
         {
             // location
-            string location = $"/v5/assets_deduction_currency";
+            string location = $"/v5/market/assets_deduction_currency";
 
             // option
             string option = null;

@@ -3,10 +3,22 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful.Response.Account
 {
     public class FeeDeductionCurrencyResponse
     {
-        [JsonProperty("fee_option", NullValueHandling = NullValueHandling.Ignore)]
-        public int FeeOption { get; set; }
+        public int code { get; set; }
 
-        [JsonProperty("deduction_currency", NullValueHandling = NullValueHandling.Ignore)]
-        public string DeductionCurrency { get; set; }
+        public string message { get; set; }
+
+        public long ts { get; set; }
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public Data data { get; set; }
+
+        public class Data
+        {
+            [JsonProperty("fee_option")]
+            public int FeeOption { get; set; }
+
+            [JsonProperty("deduction_currency")]
+            public string DeductionCurrency { get; set; }
+        }
     }
 }
