@@ -55,6 +55,9 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful.Response.Account
                 [JsonProperty("isolated_equity")]
                 public string isolatedEquity { get; set; }
 
+                [JsonProperty("isolated_profit_unreal")]
+                public string isolatedProfitUnreal { get; set; }
+
                 [JsonProperty("available")]
                 public string available { get; set; }
                 

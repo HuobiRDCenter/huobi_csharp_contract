@@ -1229,7 +1229,260 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
             }
             return await HttpRequest.PostAsync<SwapMultiAssetsMarginResponse>(url, content);
         }
+
+        public async Task<AssetModeResponse> SetAssetModeAsync(int assetMode)
+        {
+            // ulr
+            string url = _urlBuilder.Build(POST_METHOD, "/v5/account/asset_mode");
+
+            // content
+            string content = null;
+
+            content += $",\"asset_mode\": {assetMode}";
+
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+            return await HttpRequest.PostAsync<AssetModeResponse>(url, content);
+        }
+
+        public async Task<AssetModeResponse> GetAssetModeAsync()
+        {
+            // location
+            string location = "/v5/account/asset_mode";
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<AssetModeResponse>(url);
+        }
+
+        public async Task<AccountFeeDeductionCurrencyResponse> GetAccountFeeDeductionCurrencyAsync()
+        {
+            // location
+            string location = "/v5/account/fee_deduction_currency";
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<AccountFeeDeductionCurrencyResponse>(url);
+        }
+
+        public async Task<AccountBillsResponse> GetAccountBillsAsync(
+            string contractCode = null,
+            string marginMode = null,
+            string type = null,
+            string startTime = null,
+            string endTime = null,
+            long? from = null,
+            int? limit = null,
+            string direct = null)
+        {
+            // location
+            string location = "/v5/account/bills";
+
+            // option
+            string option = null;
+            if (!string.IsNullOrEmpty(contractCode))
+            {
+                option += $"&contract_code={contractCode}";
+            }
+            if (!string.IsNullOrEmpty(marginMode))
+            {
+                option += $"&margin_mode={marginMode}";
+            }
+            if (!string.IsNullOrEmpty(type))
+            {
+                option += $"&type={type}";
+            }
+            if (!string.IsNullOrEmpty(startTime))
+            {
+                option += $"&start_time={startTime}";
+            }
+            if (!string.IsNullOrEmpty(endTime))
+            {
+                option += $"&end_time={endTime}";
+            }
+            if (from != null)
+            {
+                option += $"&from={from}";
+            }
+            if (limit != null)
+            {
+                option += $"&limit={limit}";
+            }
+            if (!string.IsNullOrEmpty(direct))
+            {
+                option += $"&direct={direct}";
+            }
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<AccountBillsResponse>(url);
+        }
         
+        /// <summary>
+        /// Query universal transfer records
+        /// </summary>
+        public async Task<UniversalTransferRecordsResponse> GetUniversalTransferRecordsAsync(
+            long userId,
+            long? transferId = null,
+            string currency = null,
+            string status = null,
+            long? startTime = null,
+            long? endTime = null,
+            long? from = null,
+            int? limit = null,
+            string direct = null)
+        {
+            // location
+            string location = "/v5/account/universal_transfer_records";
+
+            // option
+            string option = null;
+            option += $"&userId={userId}";
+            
+            if (transferId != null)
+            {
+                option += $"&transfer_id={transferId}";
+            }
+            if (!string.IsNullOrEmpty(currency))
+            {
+                option += $"&currency={currency}";
+            }
+            if (!string.IsNullOrEmpty(status))
+            {
+                option += $"&status={status}";
+            }
+            if (startTime != null)
+            {
+                option += $"&start_time={startTime}";
+            }
+            if (endTime != null)
+            {
+                option += $"&end_time={endTime}";
+            }
+            if (from != null)
+            {
+                option += $"&from={from}";
+            }
+            if (limit != null)
+            {
+                option += $"&limit={limit}";
+            }
+            if (!string.IsNullOrEmpty(direct))
+            {
+                option += $"&direct={direct}";
+            }
+            
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<UniversalTransferRecordsResponse>(url);
+        }
+
+        /// <summary>
+        /// Execute universal transfer
+        /// </summary>
+        public async Task<UniversalTransferResponse> UniversalTransferAsync(
+            long userId,
+            string currency,
+            string amount,
+            string fromAccountType,
+            string toAccountType,
+            string fromAssetType = null,
+            string toAssetType = null)
+        {
+            // url
+            string url = _urlBuilder.Build(POST_METHOD, "/v5/account/universal_transfer");
+
+            // content
+            string content = null;
+            
+            content += $",\"userId\": {userId}";
+            content += $",\"currency\": \"{currency}\"";
+            content += $",\"amount\": \"{amount}\"";
+            content += $",\"from_account_type\": \"{fromAccountType}\"";
+            content += $",\"to_account_type\": \"{toAccountType}\"";
+            
+            if (!string.IsNullOrEmpty(fromAssetType))
+            {
+                content += $",\"from_asset_type\": \"{fromAssetType}\"";
+            }
+            if (!string.IsNullOrEmpty(toAssetType))
+            {
+                content += $",\"to_asset_type\": \"{toAssetType}\"";
+            }
+            
+            if (content != null)
+            {
+                content = $"{{ {content.Substring(1)} }}";
+            }
+            
+            return await HttpRequest.PostAsync<UniversalTransferResponse>(url, content);
+        }
+
+        /// <summary>
+        /// Query invitee rebate referrals
+        /// </summary>
+        public async Task<InviteeRebateReferralsResponse> InviteeRebateReferralsAsync(
+            long userId,
+            string inviteeUidList = null,
+            string referralCode = null,
+            string startTime = null,
+            string endTime = null,
+            string direct = null,
+            string fromId = null,
+            long? limit = null)
+        {
+            // location
+            string location = "/v2/invitee/rebate/referrals";
+
+            // option
+            string option = null;
+            option += $"&userId={userId}";
+            
+            if (!string.IsNullOrEmpty(inviteeUidList))
+            {
+                option += $"&inviteeUidList={inviteeUidList}";
+            }
+            if (!string.IsNullOrEmpty(referralCode))
+            {
+                option += $"&referralCode={referralCode}";
+            }
+            if (!string.IsNullOrEmpty(startTime))
+            {
+                option += $"&startTime={startTime}";
+            }
+            if (!string.IsNullOrEmpty(endTime))
+            {
+                option += $"&endTime={endTime}";
+            }
+            if (!string.IsNullOrEmpty(direct))
+            {
+                option += $"&direct={direct}";
+            }
+            if (!string.IsNullOrEmpty(fromId))
+            {
+                option += $"&fromId={fromId}";
+            }
+            if (limit != null)
+            {
+                option += $"&limit={limit}";
+            }
+            
+            if (option != null)
+            {
+                location += $"?{option.Substring(1)}";
+            }
+
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<InviteeRebateReferralsResponse>(url);
+        }
+
         public async Task<InviteeRebateAllRebateDtailResponse> InviteeRebateAllRebateDtailAsync(string direct = null, string fromId = null, long? limit = null)
         {
             // location

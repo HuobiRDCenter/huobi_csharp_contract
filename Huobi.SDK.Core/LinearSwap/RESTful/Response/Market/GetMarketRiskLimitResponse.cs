@@ -64,6 +64,12 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful.Response.Market
             /// </summary>
             [JsonProperty("min_volume")]
             public string MinVolume { get; set; }
+
+            /// <summary>
+            /// 持有单位
+            /// </summary>
+            [JsonProperty("volume_unit")]
+            public string volumeUnit { get; set; }
         }
     }
 }

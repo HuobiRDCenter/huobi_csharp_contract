@@ -40,6 +40,9 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful.Response.Order
 
             [JsonProperty("min_volume")]
             public string MinVolume { get; set; }
+
+            [JsonProperty("volume_unit")]
+            public string volumeUnit { get; set; }
         }
     }
 }
