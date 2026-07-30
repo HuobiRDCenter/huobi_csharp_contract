@@ -1,1 +1,12 @@
 .DS_Store
+bin/
+obj/
+*.user
+*.suo
+appsettings.json
+.idea/
+.specify/
+docs/
+specs/
+CLAUDE.md
+

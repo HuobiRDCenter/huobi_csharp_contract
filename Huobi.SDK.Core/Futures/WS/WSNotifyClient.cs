@@ -442,7 +442,7 @@ namespace Huobi.SDK.Core.Futures.WS
         #endregion
 
         #region match_orders
-        public delegate void _OnSubMatchOrdersResponse(SubMatchOrdersResponse data);
+        public delegate void _OnSubMatchOrdersV2Response(SubMatchOrdersResponse data);
 
         /// <summary>
         /// 订阅撮合后的订单数据
@@ -450,7 +450,7 @@ namespace Huobi.SDK.Core.Futures.WS
         /// <param name="contractCode">合约代码，支持*（全部）、BTC-USDT（永续）、BTC-USDT-240909（交割）</param>
         /// <param name="callbackFun"></param>
         /// <param name="cid"></param>
-        public void SubMatchOrders(string contractCode, _OnSubMatchOrdersResponse callbackFun, string cid = WebSocketOp.DEFAULT_ID)
+        public void SubMatchOrdersV2(string contractCode, _OnSubMatchOrdersV2Response callbackFun, string cid = WebSocketOp.DEFAULT_ID)
         {
             string ch = $"match_orders.{contractCode}";
             WSOpData opData = new WSOpData { op = "sub", cid = cid, topic = ch };
@@ -470,7 +470,7 @@ namespace Huobi.SDK.Core.Futures.WS
         /// </summary>
         /// <param name="contractCode"></param>
         /// <param name="cid"></param>
-        public void UnsubMatchOrders(string contractCode, string cid = WebSocketOp.DEFAULT_ID)
+        public void UnsubMatchOrdersV2(string contractCode, string cid = WebSocketOp.DEFAULT_ID)
         {
             string ch = $"match_orders.{contractCode}";
             WSOpData opData = new WSOpData { op = "unsub", cid = cid, topic = ch };

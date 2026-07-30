@@ -1157,11 +1157,11 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
         }
 
         /// <summary>
-        /// 查询当前资金费率
+        /// 查询当前资金费率（V5）
         /// </summary>
         /// <param name="contractCode">合约代码</param>
         /// <returns></returns>
-        public async Task<MarketFundingRateResponse> GetFundingRateAsync(string contractCode)
+        public async Task<MarketFundingRateResponse> GetFundingRateV5Async(string contractCode)
         {
             // location
             string location = "/v5/market/funding_rate";
@@ -1177,7 +1177,7 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
                 location += $"?{option.Substring(1)}";
             }
 
-            string url = _urlBuilder.Build(GET_METHOD, location);
+            string url = _urlBuilder.Build(location);
             return await HttpRequest.GetAsync<MarketFundingRateResponse>(url);
         }
 
@@ -1233,7 +1233,7 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
                 location += $"?{option.Substring(1)}";
             }
 
-            string url = _urlBuilder.Build(GET_METHOD, location);
+            string url = _urlBuilder.Build(location);
             return await HttpRequest.GetAsync<MarketFundingRateHistoryResponse>(url);
         }
 
@@ -1258,7 +1258,7 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
                 location += $"?{option.Substring(1)}";
             }
 
-            string url = _urlBuilder.Build(GET_METHOD, location);
+            string url = _urlBuilder.Build(location);
             return await HttpRequest.GetAsync<MarketOpenInterestResponse>(url);
         }
 
@@ -1283,7 +1283,7 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
                 location += $"?{option.Substring(1)}";
             }
 
-            string url = _urlBuilder.Build(GET_METHOD, location);
+            string url = _urlBuilder.Build(location);
             return await HttpRequest.GetAsync<MarketPriceLimitResponse>(url);
         }
 
@@ -1345,7 +1345,7 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
                 location += $"?{option.Substring(1)}";
             }
 
-            string url = _urlBuilder.Build(GET_METHOD, location);
+            string url = _urlBuilder.Build(location);
             return await HttpRequest.GetAsync<MarketLiquidationOrdersResponse>(url);
         }
 
@@ -1401,17 +1401,17 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
                 location += $"?{option.Substring(1)}";
             }
 
-            string url = _urlBuilder.Build(GET_METHOD, location);
+            string url = _urlBuilder.Build(location);
             return await HttpRequest.GetAsync<MarketSettlementHistoryResponse>(url);
         }
 
         /// <summary>
-        /// 查询精英账户多空持仓对比-账户数
+        /// 查询精英账户多空持仓对比-账户数（V5）
         /// </summary>
         /// <param name="contractCode">合约代码</param>
         /// <param name="period">周期</param>
         /// <returns></returns>
-        public async Task<MarketEliteAccountRatioResponse> GetEliteAccountRatioAsync(
+        public async Task<MarketEliteAccountRatioResponse> GetEliteAccountRatioV5Async(
             string contractCode,
             string period)
         {
@@ -1433,17 +1433,17 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
                 location += $"?{option.Substring(1)}";
             }
 
-            string url = _urlBuilder.Build(GET_METHOD, location);
+            string url = _urlBuilder.Build(location);
             return await HttpRequest.GetAsync<MarketEliteAccountRatioResponse>(url);
         }
 
         /// <summary>
-        /// 查询精英账户多空持仓对比-持仓数
+        /// 查询精英账户多空持仓对比-持仓数（V5）
         /// </summary>
         /// <param name="contractCode">合约代码</param>
         /// <param name="period">周期</param>
         /// <returns></returns>
-        public async Task<MarketElitePositionRatioResponse> GetElitePositionRatioAsync(
+        public async Task<MarketElitePositionRatioResponse> GetElitePositionRatioV5Async(
             string contractCode,
             string period)
         {
@@ -1465,7 +1465,7 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
                 location += $"?{option.Substring(1)}";
             }
 
-            string url = _urlBuilder.Build(GET_METHOD, location);
+            string url = _urlBuilder.Build(location);
             return await HttpRequest.GetAsync<MarketElitePositionRatioResponse>(url);
         }
 
@@ -1490,7 +1490,7 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
                 location += $"?{option.Substring(1)}";
             }
 
-            string url = _urlBuilder.Build(GET_METHOD, location);
+            string url = _urlBuilder.Build(location);
             return await HttpRequest.GetAsync<MarketEstimatedSettlementPriceResponse>(url);
         }
     }

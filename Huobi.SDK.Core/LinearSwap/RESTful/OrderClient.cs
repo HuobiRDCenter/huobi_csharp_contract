@@ -2193,9 +2193,8 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
             string url = _urlBuilder.Build(GET_METHOD, location);
             return await HttpRequest.GetAsync<GetTradeOrderResponse>(url);
         }
-    }
 
-    public async Task<TradeCancelAfterResponse> TradeCancelAfterAsync(string onOff, string timeOut = null)
+        public async Task<TradeCancelAfterResponse> TradeCancelAfterAsync(string onOff, string timeOut = null)
     {
         // location
         string location = "/v5/trade/cancel-after";
@@ -2215,7 +2214,8 @@ namespace Huobi.SDK.Core.LinearSwap.RESTful
             location += $"?{option.Substring(1)}";
         }
 
-        string url = _urlBuilder.Build(GET_METHOD, location);
-        return await HttpRequest.GetAsync<TradeCancelAfterResponse>(url);
+            string url = _urlBuilder.Build(GET_METHOD, location);
+            return await HttpRequest.GetAsync<TradeCancelAfterResponse>(url);
+        }
     }
 }
